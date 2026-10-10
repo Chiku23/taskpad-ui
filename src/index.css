@@ -1,1 +1,146 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ==========================================================================
+   1. TAILWIND THEME CONFIGURATION
+   ========================================================================== */
+
+@theme {
+  --color-app-canvas: var(--app-canvas);
+  --color-app-sidebar: var(--app-sidebar);
+  --color-app-column: var(--app-column);
+  --color-app-card: var(--app-card);
+  --color-app-card-hover: var(--app-card-hover);
+  --color-app-border: var(--app-border);
+
+  --color-app-input-bg: var(--app-input-bg);
+  --color-app-input-border: var(--app-input-border);
+  --color-app-input-focus: var(--app-input-focus);
+  --color-app-input-error: var(--app-input-error);
+
+  --color-app-button: var(--app-button);
+
+  --color-app-brand: var(--app-brand);
+  --color-app-brand-hover: var(--app-brand-hover);
+  --color-app-focus: var(--app-focus);
+
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-text-ghost: var(--text-ghost);
+
+  --color-status-todo-bg: var(--status-todo-bg);
+  --color-status-todo-txt: var(--status-todo-txt);
+
+  --color-status-progress-bg: var(--status-progress-bg);
+  --color-status-progress-txt: var(--status-progress-txt);
+
+  --color-status-done-bg: var(--status-done-bg);
+  --color-status-done-txt: var(--status-done-txt);
+
+  --color-priority-highest: var(--priority-highest);
+  --color-priority-high: var(--priority-high);
+  --color-priority-medium: var(--priority-medium);
+  --color-priority-lowest: var(--priority-lowest);
+
+  --font-poppins: 'Poppins', sans-serif;
+}
+
+/* ==========================================================================
+   2. LIGHT MODE — CHARCOAL & ORANGE
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* Structure & Surface */
+  --app-canvas: #f5f6f8;
+  --app-sidebar: #ffffff;
+  --app-column: #eceef2;
+  --app-card: #ffffff;
+  --app-card-hover: #f9fafb;
+  --app-border: #dfe3e8;
+  --app-button: rgba(172, 170, 168, 0.493);
+
+  /* Branding & Interactive */
+  --app-brand: #ea580c;
+  --app-brand-hover: #c2410c;
+  --app-focus: rgba(234, 88, 12, 0.22);
+
+  /* Auth Inputs */
+  --app-input-bg: #ffffff;
+  --app-input-border: #cbd0d8;
+  --app-input-focus: #ea580c;
+  --app-input-error: #dc2626;
+
+  /* Typography */
+  --text-main: #20242c;
+  --text-muted: #626b78;
+  --text-ghost: #929ba8;
+
+  /* Status Badges */
+  --status-todo-bg: #e8ebef;
+  --status-todo-txt: #47505d;
+
+  --status-progress-bg: #ffedd5;
+  --status-progress-txt: #9a3412;
+
+  --status-done-bg: #dcfce7;
+  --status-done-txt: #166534;
+
+  /* Universal Priority System */
+  --priority-highest: #dc2626;
+  --priority-high: #ea580c;
+  --priority-medium: #ca8a04;
+  --priority-lowest: #64748b;
+}
+
+/* ==========================================================================
+   3. DARK MODE — DEEP CHARCOAL & BURNT ORANGE
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    /* Structure & Surface */
+    --app-canvas: #181a1f;
+    --app-sidebar: #14161a;
+    --app-column: #22252b;
+    --app-card: #292d34;
+    --app-card-hover: #333840;
+    --app-border: #3b4049;
+    --app-button: rgba(255, 255, 255, 0.07);
+
+    /* Branding & Interactive */
+    --app-brand: #fb923c;
+    --app-brand-hover: #fdba74;
+    --app-focus: rgba(251, 146, 60, 0.3);
+
+    /* Auth Inputs */
+    --app-input-bg: #202329;
+    --app-input-border: #454b55;
+    --app-input-focus: #fb923c;
+    --app-input-error: #f87171;
+
+    /* Typography */
+    --text-main: #f3f4f6;
+    --text-muted: #a5abb5;
+    --text-ghost: #737b87;
+
+    /* Status Badges */
+    --status-todo-bg: #353a43;
+    --status-todo-txt: #d1d5db;
+
+    --status-progress-bg: #4a291b;
+    --status-progress-txt: #fdba74;
+
+    --status-done-bg: #153b2a;
+    --status-done-txt: #86efac;
+
+    /* Universal Priority System */
+    --priority-highest: #f87171;
+    --priority-high: #fb923c;
+    --priority-medium: #facc15;
+    --priority-lowest: #94a3b8;
+  }
+}
