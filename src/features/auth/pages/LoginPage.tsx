@@ -10,7 +10,7 @@ export const LoginPage = () => {
         <h1 className="text-text-main text-2xl">Login to {""}
           <span className="text-app-brand">Taskpad</span>
         </h1>
-        <p className="text-text-ghost">Login below and start your journey</p>
+        <p className="text-text-muted">Login below and start your journey</p>
         </div>
 
         <LoginForm />
