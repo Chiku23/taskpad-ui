@@ -8,6 +8,7 @@
 @theme {
   --color-app-canvas: var(--app-canvas);
   --color-app-sidebar: var(--app-sidebar);
+  --color-app-topbar: var(--app-topbar);
   --color-app-column: var(--app-column);
   --color-app-card: var(--app-card);
   --color-app-card-hover: var(--app-card-hover);
@@ -43,6 +44,10 @@
   --color-priority-medium: var(--priority-medium);
   --color-priority-lowest: var(--priority-lowest);
 
+  --color-app-item-hover: var(--app-item-hover);
+  --color-app-item-active: var(--app-item-active);
+  --color-app-item-active-hover: var(--app-item-active-hover);
+
   --font-poppins: 'Poppins', sans-serif;
 }
 
@@ -61,6 +66,7 @@
   --app-card-hover: #f9fafb;
   --app-border: #dfe3e8;
   --app-button: rgba(172, 170, 168, 0.493);
+  --app-topbar: rgba(255, 255, 255, 0.493);
 
   /* Branding & Interactive */
   --app-brand: #ea580c;
@@ -106,6 +112,7 @@
     /* Structure & Surface */
     --app-canvas: #181a1f;
     --app-sidebar: #14161a;
+    --app-topbar: rgba(20, 20, 20, 0.363);
     --app-column: #22252b;
     --app-card: #292d34;
     --app-card-hover: #333840;
@@ -144,5 +151,11 @@
     --priority-high: #fb923c;
     --priority-medium: #facc15;
     --priority-lowest: #94a3b8;
+
+    
+  /* app items (cards, sidebar items ...)*/
+  --app-item-hover: rgba(17, 17, 17, 0.808);
+  --app-item-active: rgba(27, 53, 105, 0.767);
+  --app-item-active-hover: rgba(16, 60, 148, 0.815);
   }
 }
