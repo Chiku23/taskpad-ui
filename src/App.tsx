@@ -4,6 +4,7 @@ import { RegisterPage } from "./features/auth/pages/RegisterPage";
 import { AppLayout } from "./components/layouts/AppLayout";
 import { DashboardPage } from "./features/dashboard/pages/Dashboard";
 import { IssuesPage } from "./features/issues/pages/IssuesPage";
+import { ActivityPage } from "./features/activity/pages/ActivityPages";
 
 /**
  * Renders the login and registration routes within the browser router.
@@ -20,6 +21,7 @@ function App() {
       <Route path="/" element={<AppLayout />}>
        <Route index element={<Navigate to="/dashboard" replace/>} />
        <Route path="/dashboard" element={<DashboardPage />}/>
+       <Route path="/activity" element={<ActivityPage />}/>
        <Route path="/issues" element={<IssuesPage />}/>
       </Route>
      </Routes>
