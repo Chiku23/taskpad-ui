@@ -11,7 +11,7 @@ interface TopbarProps {
 
 export const Topbar = ({onToggleSidebar, isSidebarOpen}: TopbarProps) => {
     return(
-        <div className="p-2 absolute top-0 w-full sticky bg-app-topbar flex items-center justify-between">
+        <div className="p-2 absolute top-0 w-full sticky bg-app-topbar flex items-center">
             <div className="mx-5 flex text-text-muted">
                 <button onClick={onToggleSidebar}>
                 {isSidebarOpen ? 
