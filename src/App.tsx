@@ -18,6 +18,7 @@ function App() {
       <Route path="/register" element={<RegisterPage />}/>
 
       <Route path="/" element={<AppLayout />}>
+       <Route index element={<Navigate to="/dashboard" replace/>} />
        <Route path="/dashboard" element={<DashboardPage />}/>
        <Route path="/issues" element={<IssuesPage />}/>
       </Route>

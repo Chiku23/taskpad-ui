@@ -13,7 +13,9 @@ export const Topbar = ({onToggleSidebar, isSidebarOpen}: TopbarProps) => {
     return(
         <div className="p-2 absolute top-0 w-full sticky bg-app-topbar flex items-center">
             <div className="mx-5 flex text-text-muted">
-                <button onClick={onToggleSidebar}>
+                <button 
+                onClick={onToggleSidebar}
+                aria-label={isSidebarOpen ? "Close Sidebar" : "Open sidebar"}>
                 {isSidebarOpen ? 
                  <GoSidebarExpand className="size-6" />
                  : <GoSidebarCollapse className="size-6"/>
@@ -28,6 +30,7 @@ export const Topbar = ({onToggleSidebar, isSidebarOpen}: TopbarProps) => {
 
             <input 
             type="search" 
+            aria-label="Search"
             placeholder="Search" 
             className="border border-app-input-border w-lg px-2 py-1 mx-10 rounded-lg outline-none"/>
             <CreateTaskButton />
