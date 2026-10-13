@@ -13,16 +13,16 @@ interface SidebarProps {
 }
 
 const ITEMS = [
-  { id: "work", name: "Activity", url: "/activity", icon: FaRegUserCircle },
+  { id: "work", name: "For you", url: "/activity", icon: FaRegUserCircle },
   { id: "dashboard", name: "Dashboard", url: "/dashboard", icon: MdOutlineSpaceDashboard },
-  { id: "issues", name: "Issues", url: "/issues", icon: VscIssues },
+  { id: "issues", name: "Issues", url: "/issues", icon: VscIssues, issueCount: 5 },
 ];
 export const Sidebar = ({ isOpen }: SidebarProps) => {
   const location = useLocation();
   return (
     <div 
     inert={!isOpen}
-    className={`bg-app-sidebar overflow-hidden h-screen font-poppins text-sm text-text-muted shadow-lg ${isOpen ? "w-64 p-4" : "w-0 p-0"}`}>
+    className={`bg-app-sidebar border-r border-app-border overflow-hidden h-screen text-sm text-text-muted shadow-lg ${isOpen ? "w-64 p-4" : "w-0 p-0"}`}>
       <div className="flex flex-col gap-1">
         {/* sidebar items for navigation */}
         <p className="p-1 text-[12px] text-text-ghost font-bold">My works</p>
@@ -30,11 +30,20 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
           const isActive = location.pathname === item.url;
           const Icon = item.icon;
           return (
-            <Link to={item.url} key={item.id} className={`p-1 flex items-center gap-1 rounded-lg ${isActive ? "bg-app-item-active hover:bg-app-item-active-hover": "hover:bg-app-item-hover"}`}>
+            <Link to={item.url} key={item.id} className={`p-1 flex items-center justify-between rounded-lg ${isActive ? "bg-app-item-active hover:bg-app-item-active-hover": "hover:bg-app-item-hover"}`}>
+
+              <div className="flex items-center gap-1">
               <span>
                 <Icon className="size-5" />
               </span>
                 <p>{item.name}</p>
+              </div>
+
+              {item.issueCount !== undefined && (
+              <span className="bg-app-button text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full text-center">
+              {item.issueCount}
+              </span>
+      )}
             </Link>
           );
         })}
