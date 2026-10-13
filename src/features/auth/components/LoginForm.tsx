@@ -1,16 +1,19 @@
 import { useState } from "react";
 import {loginUser} from "../api/authApi";
+import type { LoginPayload } from "../types/authTypes";
 
 export const LoginForm = () => {
-    const [emailInput, setEmailInput] = useState("");
-    const [passwordInout, setPasswordInput] = useState("");
+    const [formData, setFormData] = useState<LoginPayload>({
+        emailInput: "",
+        passwordInput: ""
+    })
     const [errorMessage, setErrorMessage] = useState("");
 
     const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         setErrorMessage("");
         try {
-            const response = await loginUser(emailInput, passwordInout);
+            const response = await loginUser(formData);
             if(response.status == "false"){
                 setErrorMessage(response.message);
                 // reset local storage
@@ -25,6 +28,7 @@ export const LoginForm = () => {
                 setErrorMessage("Hello "+ response.data.name);
             }
         } catch (error) {
+            console.log(error);
             setErrorMessage("Something went wrong! Please try again later.");
         }
     }
@@ -38,8 +42,8 @@ export const LoginForm = () => {
             type="email"
             name="email"
             placeholder="Enter your email"
-            value={emailInput}
-            onChange={(e) => setEmailInput(e.target.value)}
+            value={formData.emailInput}
+            onChange={(e) => setFormData({...formData, emailInput: e.target.value})}
             required
             />
 
@@ -47,8 +51,8 @@ export const LoginForm = () => {
             className="bg-app-input-bg px-4 py-2 border-1 border-app-input-border outline-none rounded-lg"
             type="password"
             placeholder="Enter your Password"
-            value={passwordInout}
-            onChange={(e) => setPasswordInput(e.target.value)}
+            value={formData.passwordInput}
+            onChange={(e) => setFormData({...formData, passwordInput: e.target.value})}
             required
             />
 
