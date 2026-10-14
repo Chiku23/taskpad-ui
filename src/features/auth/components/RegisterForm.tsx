@@ -1,13 +1,34 @@
 import { useState } from "react";
+import type { RegisterPayload } from "../types/authTypes";
+import { registerUser } from "../api/authApi";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterForm = () => {
-    const [nameInput, setNameInput] = useState("");
-    const [emailInput, setEmailInput] = useState("");
-    const [passwordInout, setPasswordInput] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [formData, setFormData] = useState<RegisterPayload>({
+        nameInput: "",
+        emailInput: "",
+        passwordInput: "",
+        confirmpasswordInput: ""
+    });
 
-    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const navigate = useNavigate();
+
+    const handleSubmit = async(e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const response = await registerUser(formData);
+
+        if(response.status === "false"){
+            setErrorMessage(response.message);
+        }
+        else{
+            //After succesful registration redirect user to login
+            navigate("/login", {
+                state: {
+                    message: "Registration successful, Please log in"
+                }
+            });
+        }
     }
     return(
         <form 
@@ -18,8 +39,8 @@ export const RegisterForm = () => {
             className="bg-app-input-bg px-4 py-2 border-1 border-app-input-border outline-none rounded-lg"
             type="text"
             placeholder="Enter your Username"
-            value={nameInput}
-            onChange={(e) => setNameInput(e.target.value)}
+            value={formData.nameInput}
+            onChange={(e) => setFormData({...formData, nameInput: e.target.value})}
             required
             />
 
@@ -27,8 +48,8 @@ export const RegisterForm = () => {
             className="bg-app-input-bg px-4 py-2 border-1 border-app-input-border outline-none rounded-lg"
             type="email"
             placeholder="Enter your email"
-            value={emailInput}
-            onChange={(e) => setEmailInput(e.target.value)}
+            value={formData.emailInput}
+            onChange={(e) => setFormData({...formData, emailInput: e.target.value})}
             required
             />
 
@@ -36,8 +57,8 @@ export const RegisterForm = () => {
             className="bg-app-input-bg px-4 py-2 border-1 border-app-input-border outline-none rounded-lg"
             type="password"
             placeholder="Enter your Password"
-            value={passwordInout}
-            onChange={(e) => setPasswordInput(e.target.value)}
+            value={formData.passwordInput}
+            onChange={(e) => setFormData({...formData, passwordInput: e.target.value})}
             required
             />
 
@@ -45,10 +66,12 @@ export const RegisterForm = () => {
             className="bg-app-input-bg px-4 py-2 border-1 border-app-input-border outline-none rounded-lg"
             type="password"
             placeholder="Confirm your password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={formData.confirmpasswordInput}
+            onChange={(e) => setFormData({...formData, confirmpasswordInput: e.target.value})}
             required
             />
+
+            <div className="text-red-500 pt-2 text-sm">{errorMessage}</div>
 
             <button
             className="bg-app-button py-2 mt-10 rounded-lg shadow-lg"
