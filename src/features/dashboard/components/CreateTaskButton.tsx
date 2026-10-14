@@ -1,9 +1,17 @@
 import { Button } from "../../../components/ui/Button";
+import { IoIosAdd } from "react-icons/io";
+import { useModalStore } from "../../../stores/useModalStore";
+
 
 export const CreateTaskButton = () => {
+    const {openModal} = useModalStore();
     return(
-        <Button type="button" className="px-2 py-1 rounded-lg font-poppins text-sm">
+        <Button 
+        type="button" 
+        onClick={openModal}
+        className="flex items-center justify-center cursor-pointer h-full px-2 text-sm text-black rounded-md font-poppins font-light bg-app-button">
             New Task
+            <IoIosAdd className="size-5"/>
         </Button>
     )
 }

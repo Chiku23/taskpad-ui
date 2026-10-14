@@ -1,47 +1,59 @@
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
-
 import { CreateTaskButton } from "../../features/dashboard/components/CreateTaskButton";
+import { SearchBar } from "../ui/SearchBar";
 
 interface TopbarProps {
-    onToggleSidebar: () => void,
-    isSidebarOpen: boolean
+  onToggleSidebar: () => void;
+  isSidebarOpen: boolean;
 }
 
-export const Topbar = ({onToggleSidebar, isSidebarOpen}: TopbarProps) => {
-    return(
-        <div className="p-2 absolute top-0 w-full sticky bg-app-topbar flex items-center">
-            <div className="mx-5 flex text-text-muted">
-                <button 
-                onClick={onToggleSidebar}
-                aria-label={isSidebarOpen ? "Close Sidebar" : "Open sidebar"}>
-                {isSidebarOpen ? 
-                 <GoSidebarExpand className="size-6" />
-                 : <GoSidebarCollapse className="size-6"/>
-                }
-                </button>
-            </div>
-            {/* Logo */}
-            <div className="flex flex-col space-y-0">
-                <p className="text-xl text-app-brand m-0 leading-none">Taskpad</p>
-                <p className="text-text-ghost text-sm m-0 leading-none">Manage your all task smartly</p>
-            </div>
-
-            <input 
-            type="search" 
-            aria-label="Search"
-            placeholder="Search" 
-            className="border border-app-input-border w-lg px-2 py-1 mx-10 rounded-lg outline-none"/>
-            <CreateTaskButton />
-
-            {/* user related */}
-            <div className="flex items-center gap-3 text-text-muted">
-                {/* notifications */}
-                <IoIosNotificationsOutline className="size-6"/>
-                {/* settings */}
-                <IoSettingsOutline className="size-5"/>
-            </div>
+export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
+  return (
+    <div className="p-3 sticky top-0 w-full bg-app-topbar grid grid-cols-3 items-center border-y border-app-border">
+      {/*Sidebar toggle & Logo */}
+      <div className="flex items-center gap-4 text-text-muted">
+        <button
+          onClick={onToggleSidebar}
+          aria-label={isSidebarOpen ? "Close Sidebar" : "Open sidebar"}
+          className="hover:opacity-80 transition-opacity cursor-pointer">
+          {isSidebarOpen ? (
+            <GoSidebarExpand className="size-6" />
+          ) : (
+            <GoSidebarCollapse className="size-6" />
+          )}
+        </button>
+        {/* Logo */}
+        <div className="flex flex-col justify-center cursor-pointer">
+          <p className="text-xl font-semibold text-app-brand m-0 leading-none">
+            Taskpad
+          </p>
+          <p className="text-text-ghost text-xs m-0 mt-1 leading-none">
+            Manage your all task smartly
+          </p>
         </div>
-    )
-}
+      </div>
+
+      {/* Search & Create Button */}
+      <div className="flex items-center gap-2 w-full h-full">
+        <SearchBar
+          className="text-sm bg-app-input-bg"
+          placeholder="Type here...."/>
+        <CreateTaskButton />
+      </div>
+
+      {/*User related */}
+      <div className="flex items-center gap-4 text-text-muted justify-self-end">
+        {/* notifications */}
+        <button className="hover:opacity-80 transition-opacity cursor-pointer">
+          <IoIosNotificationsOutline className="size-6" />
+        </button>
+        {/* settings */}
+        <button className="hover:opacity-80 transition-opacity cursor-pointer">
+          <IoSettingsOutline className="size-5" />
+        </button>
+      </div>
+    </div>
+  );
+};
