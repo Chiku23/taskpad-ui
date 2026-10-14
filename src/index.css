@@ -20,6 +20,7 @@
   --color-app-input-error: var(--app-input-error);
 
   --color-app-button: var(--app-button);
+  --color-app-button-hover: var(--app-button-hover);
 
   --color-app-brand: var(--app-brand);
   --color-app-brand-hover: var(--app-brand-hover);
@@ -116,7 +117,8 @@
     --app-card: #292d34;
     --app-card-hover: #333840;
     --app-border: #3b4049;
-    --app-button: rgb(185, 90, 12);
+    --app-button: rgba(255, 114, 24, 1);
+    --app-button-hover: rgba(255, 99, 0, 1);
 
     /* Branding & Interactive */
     --app-brand: #fb923c;
