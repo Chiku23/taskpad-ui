@@ -19,29 +19,33 @@ export const LoginForm = () => {
   );
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    setErrorMessage("");
-    setSuccessMessage("");
+      setErrorMessage("");
+      setSuccessMessage("");
 
-    const response = await loginUser(formData);
-    if (response.status == "false") {
-      setErrorMessage(response.message);
-      // reset local storage
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-    } else {
-      // Store the token and user in local storage after successful login
-      const user = response.data;
-      if (user?.token) {
-        localStorage.setItem("token", user.token);
+      const response = await loginUser(formData);
+      if (response.status == "false") {
+        setErrorMessage(response.message);
+        // reset local storage
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      } else {
+        // Store the token and user in local storage after successful login
+        const user = response.data;
+        if (user?.token) {
+          localStorage.setItem("token", user.token);
+        }
+        if (user) {
+          localStorage.setItem("user", JSON.stringify(user));
+        }
+
+        // navigate to dashboard
+        navigate("/dashboard");
       }
-      if (user) {
-        localStorage.setItem("user", JSON.stringify(user));
-      }
-
-      // navigate to dashboard
-      navigate("/dashboard");
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "Error occured");
     }
   };
   return (

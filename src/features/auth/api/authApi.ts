@@ -8,8 +8,6 @@ import type {
 
 //todo: replace unknown type with response interface/type
 export const loginUser = async(formData: LoginPayload): Promise<LoginResponse> => {
-    try{
-
         const response = await fetch(`${BASE_URL}/login`, {
             method: "POST",
             headers: {
@@ -21,17 +19,9 @@ export const loginUser = async(formData: LoginPayload): Promise<LoginResponse> =
             })
         });
         return await response.json();
-    }
-    catch(error){
-        return{
-            status: "false",
-            message: error instanceof Error ? error.message : "Error occured"
-        }
-    }
 }
 
 export const registerUser = async(formData: RegisterPayload): Promise<RegisterResponse> => {
-    try{
         const response = await fetch(`${BASE_URL}/register`, {
             method: "POST",
             headers: {
@@ -44,13 +34,5 @@ export const registerUser = async(formData: RegisterPayload): Promise<RegisterRe
                 confirmpassword: formData.confirmpasswordInput
             })
         })
-
         return await response.json();
-    }
-    catch(error){
-        return {
-            status: "false",
-            message: error instanceof Error ? error.message : "Error occured"
-        }
-    }
 }
