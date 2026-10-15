@@ -34,5 +34,9 @@ export const registerUser = async(formData: RegisterPayload): Promise<RegisterRe
                 confirmpassword: formData.confirmpasswordInput
             })
         })
-        return await response.json();
+        try {
+            return await response.json();
+        } catch {
+            throw new Error("Unexpected response from server. Please try again.");
+        }
 }
