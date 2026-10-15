@@ -17,6 +17,7 @@ export const RegisterForm = () => {
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      setErrorMessage("");
       const response = await registerUser(formData);
 
       if (response.status === "false") {
