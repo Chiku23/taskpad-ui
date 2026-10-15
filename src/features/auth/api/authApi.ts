@@ -1,10 +1,13 @@
 import { BASE_URL } from "../../../lib/apiClient";
-import type{ LoginPayload } from "../types/authTypes";
+import type { 
+    LoginPayload, 
+    LoginResponse, 
+    RegisterPayload,
+    RegisterResponse
+} from "../types/authTypes";
 
 //todo: replace unknown type with response interface/type
-async function loginUser(formData: LoginPayload): Promise<unknown> {
-    try{
-
+export const loginUser = async(formData: LoginPayload): Promise<LoginResponse> => {
         const response = await fetch(`${BASE_URL}/login`, {
             method: "POST",
             headers: {
@@ -16,13 +19,24 @@ async function loginUser(formData: LoginPayload): Promise<unknown> {
             })
         });
         return await response.json();
-    }
-    catch(error){
-        return{
-            stats: false,
-            message: error instanceof Error ? error.message : "Error occured"
-        }
-    }
 }
 
-export { loginUser };
+export const registerUser = async(formData: RegisterPayload): Promise<RegisterResponse> => {
+        const response = await fetch(`${BASE_URL}/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: formData.nameInput,
+                email: formData.emailInput,
+                password: formData.passwordInput,
+                confirmpassword: formData.confirmpasswordInput
+            })
+        })
+        try {
+            return await response.json();
+        } catch {
+            throw new Error("Unexpected response from server. Please try again.");
+        }
+}
