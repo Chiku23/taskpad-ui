@@ -1,52 +1,64 @@
-import { useModalStore } from "../../../stores/useModalStore"
-
-export const CreateTaskModal = () => {
-    const {isOpen, closeModal} = useModalStore();
-
-    if(!isOpen) return null;
-    console.log("hii")
-
-    return(
-     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      
-      {/* Dark Blurred Backdrop */}
-      <div 
-        onClick={closeModal} 
-        className="fixed inset-0 bg-black/50 cursor-pointer" 
-      />
-
-      {/* Modal Box */}
-      <div className="relative bg-app-card rounded-lg shadow-2xl w-2xl z-10">
-        <div className="flex justify-between items-center border-b border-app-border p-6">
-          <h3 className="font-semibold text-lg text-text-main">Create a New Task</h3>
-          <button 
-            onClick={closeModal} 
-            className="text-text-main size-6 rounded-md hover:bg-text-ghost transition"
-          >
-            X
-          </button>
-        </div>
-        
-        {/* form fiels*/}
-        <div className="mt-4 px-6">
-          <input className="text-text-main text-xl font-semibold w-full outline-none" 
-          type="text"
-          placeholder="Summary"/>
-
-          <textarea className="text-text-muted text-md w-full outline-none overflow-y h-20" 
-          placeholder="Add a description" />
-        </div>
-
-        <div className="flex gap-2 px-6 pb-4">
-            <span className="border border-app-border rounded-sm bg-app-input-bg px-4 py-1 text-text-muted">Assign</span>
-            <span className="border border-app-border rounded-sm bg-app-input-bg px-4 py-1 text-text-muted">Priority</span>
-            <span className="border border-app-border rounded-sm bg-app-input-bg px-4 py-1 text-text-muted">Labels</span>
-            <span className="border border-app-border rounded-sm bg-app-input-bg px-4 py-1 text-text-muted">Due date</span>
-        </div>
-        <div className="border-t border-app-border flex justify-end px-6 py-4">
-            <button className="bg-app-button py-1 px-4 rounded-md text-black text-sm font-poppins">Create</button>
-        </div>
-      </div>
-    </div>
-    )
+import { PROJECTS } from "../../../seed/project.ts";
+interface CreateProjectModalProps {
+  onSuccess: () => void;
 }
+export const CreateTaskModal = ({ onSuccess }: CreateProjectModalProps) => {
+  const handleSubmit = () => {
+    onSuccess();
+  };
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      {/* Form Fields */}
+      <div className="flex flex-col gap-1">
+        <label
+          htmlFor="task-title"
+          className="text-xs font-bold text-text-ghost uppercase tracking-wide"
+        >
+          Task title
+        </label>
+        <input
+          className="text-text-main text-sm border border-app-border bg-app-input-bg px-4 py-2 rounded-lg font-semibold w-full outline-none"
+          type="text"
+          placeholder="e.g. Fix loading state in Login"
+          required
+        />
+        <label
+          htmlFor="project-name"
+          className="text-xs font-bold text-text-ghost uppercase tracking-wide"
+        >
+          Project
+        </label>
+        <select
+          name="project"
+          defaultValue=""
+          className="text-text-ghost text-sm border border-app-border bg-app-input-bg px-3 py-2 rounded-lg font-semibold w-full outline-none"
+        >
+          <option value="" disabled hidden>
+            Select
+          </option>
+          {PROJECTS.map((project) => (
+            <option value={project.name}>{project.name}</option>
+          ))}
+        </select>
+        <label
+          htmlFor="description"
+          className="text-xs font-bold text-text-ghost uppercase tracking-wide"
+        >
+          Description
+        </label>
+        <textarea
+          className="text-text-main text-sm border border-app-border bg-app-input-bg px-4 py-2 h-30 rounded-lg font-semibold w-full outline-none"
+          placeholder="Add description"
+          required
+        />
+      </div>
+
+      <button
+        type="submit"
+        className="mt-6 w-full bg-app-button hover:bg-app-button-hover text-black font-semibold rounded-lg px-4 py-2 text-sm cursor-pointer"
+      >
+        Add new task
+      </button>
+    </form>
+  );
+};

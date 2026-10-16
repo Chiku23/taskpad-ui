@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const LoginPage = () => {
   return (
-    <div className="flex bg-app-canvas text-text-main min-h-screen justify-center items-center font-poppins">
+    <div className="flex bg-app-canvas text-text-main min-h-screen justify-center items-center font-public-sans">
       <div className="flex flex-col gap-8 border-1 border-app-border w-sm lg:max-w-xl p-4 rounded-lg bg-app-card">
 
         <div className="mt-2">
