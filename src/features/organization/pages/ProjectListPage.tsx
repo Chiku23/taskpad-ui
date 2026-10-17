@@ -44,8 +44,11 @@ export const ProjectListPage = () => {
                 </td>
                 <td className="p-2">{project.lead}</td>
                 <td className="p-2 text-xs">
-                  <select name="status" className="border border-app-border rounded-md px-2 py-1 outline-none cursor-pointer">
-                    <option value="In-progress">In Progreees</option>
+                  <select 
+                  name="status" 
+                  className="border border-app-border rounded-md px-2 py-1 outline-none cursor-pointer"
+                  defaultValue={project.status}>
+                    <option value="In-progress">In Progress</option>
                     <option value="Pending">Pending</option>
                     <option value="Completed">Completed</option>
                   </select>

@@ -20,6 +20,7 @@ export const CreateOrganizationModal = ({ onSuccess }: CreateOrganizationModalPr
           Organization Name
         </label>
         <input
+          id="org-name"
           className="text-text-main text-sm border border-app-border bg-app-input-bg px-4 py-2 rounded-lg font-semibold w-full outline-none"
           type="text"
           placeholder="e.g. Zeta pvt. ltd."

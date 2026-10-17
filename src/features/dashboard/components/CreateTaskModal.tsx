@@ -1,9 +1,13 @@
+import React from "react";
 import { PROJECTS } from "../../../seed/project.ts";
+
 interface CreateProjectModalProps {
   onSuccess: () => void;
 }
+
 export const CreateTaskModal = ({ onSuccess }: CreateProjectModalProps) => {
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.SubmitEvent) => {
+    e.preventDefault();
     onSuccess();
   };
   return (
@@ -17,6 +21,7 @@ export const CreateTaskModal = ({ onSuccess }: CreateProjectModalProps) => {
           Task title
         </label>
         <input
+        id="task-title"
           className="text-text-main text-sm border border-app-border bg-app-input-bg px-4 py-2 rounded-lg font-semibold w-full outline-none"
           type="text"
           placeholder="e.g. Fix loading state in Login"
@@ -29,6 +34,7 @@ export const CreateTaskModal = ({ onSuccess }: CreateProjectModalProps) => {
           Project
         </label>
         <select
+          id="project-name"
           name="project"
           defaultValue=""
           className="text-text-ghost text-sm border border-app-border bg-app-input-bg px-3 py-2 rounded-lg font-semibold w-full outline-none"
@@ -47,6 +53,7 @@ export const CreateTaskModal = ({ onSuccess }: CreateProjectModalProps) => {
           Description
         </label>
         <textarea
+          id="description"
           className="text-text-main text-sm border border-app-border bg-app-input-bg px-4 py-2 h-30 rounded-lg font-semibold w-full outline-none"
           placeholder="Add description"
           required

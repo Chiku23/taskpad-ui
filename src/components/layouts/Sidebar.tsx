@@ -10,6 +10,7 @@ import { FaAngleDown } from "react-icons/fa6";
 import { useState } from "react";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { MdOutlineFolderOpen } from "react-icons/md";
+import {PROJECTS} from "../../seed/project.ts";
 
 
 interface SidebarProps {
@@ -49,12 +50,6 @@ const NAV_ITEMS = [
 const ORGANIZATIONS = [
   { id: "1", name: "Zeta Corporation" },
   { id: "2", name: "Stark Pvt. ltd." },
-];
-
-const PROJECTS = [
-  { id: "1", name: "E-Commerce Website", organizationId: "1" },
-  { id: "2", name: "Mobile App", organizationId: "1" },
-  { id: "3", name: "AI Chatbot", organizationId: "2" },
 ];
 
 export const Sidebar = ({ isOpen }: SidebarProps) => {
@@ -149,7 +144,6 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                         <div className={`flex items-center justify-between rounded-md p-1.5 ${
                           isOrgActive ? "bg-app-item-active/50 text-text-main" : "hover:bg-app-item-hover"
                         }`}>
-                          <Link to={`/organization/${org.id}`} className="flex items-center gap-2 flex-1 min-w-0">
                             <button
                               type="button"
                               onClick={(e) => toggleSubDropdown(e, org.id)}
@@ -157,6 +151,7 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                             >
                               <FaAngleDown className={`size-3 ${isSubOpen ? "rotate-0" : "-rotate-90"}`} />
                             </button>
+                          <Link to={`/organization/${org.id}`} className="flex items-center gap-2 flex-1 min-w-0">
                             <HiOutlineOfficeBuilding className="size-4 text-text-ghost shrink-0" />
                             <span className="truncate text-xs">{org.name}</span>
                           </Link>
