@@ -1,6 +1,8 @@
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
+import { FaRegUserCircle } from "react-icons/fa";
+
 import { CreateTaskButton } from "../../features/dashboard/components/CreateTaskButton";
 import { SearchBar } from "../ui/SearchBar";
 
@@ -52,6 +54,10 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
         {/* settings */}
         <button className="hover:opacity-80 transition-opacity cursor-pointer">
           <IoSettingsOutline className="size-5" />
+        </button>
+        {/* profile*/}
+        <button className="hover:opacity-80 transition-opacity cursor-pointer">
+          <FaRegUserCircle className="size-5"/>
         </button>
       </div>
     </div>

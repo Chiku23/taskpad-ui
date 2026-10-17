@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
 import { useState } from "react";
-import { CreateTaskModal } from "../../features/dashboard/components/CreateTaskModal";
+import { ModalRegistry } from "../modals/ModalRegistry";
 
 export const AppLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -14,9 +14,8 @@ export const AppLayout = () => {
   return (
 
     //no full window scrolling
-    <div className="relative flex flex-col h-screen w-full overflow-hidden">
+    <div className="relative flex flex-col h-screen w-full overflow-hidden font-public-sans">
       <Topbar onToggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
-      <CreateTaskModal />
       <div className="flex flex-1 min-h-0">
         <Sidebar isOpen={isSidebarOpen} />
 
@@ -24,6 +23,8 @@ export const AppLayout = () => {
         <main className="flex-1 overflow-y-auto">
           <Outlet />
         </main>
+
+        <ModalRegistry />
       </div>
     </div>
   );

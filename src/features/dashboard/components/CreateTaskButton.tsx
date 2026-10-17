@@ -8,8 +8,8 @@ export const CreateTaskButton = () => {
     return(
         <Button 
         type="button" 
-        onClick={openModal}
-        className="flex items-center justify-center cursor-pointer h-full px-2 text-sm text-black rounded-md font-poppins font-light bg-app-button">
+        onClick={() => openModal("create_task")}
+        className="flex items-center justify-center cursor-pointer h-full px-2 text-sm text-black rounded-md font-public-sans font-light bg-app-button">
             New Task
             <IoIosAdd className="size-5"/>
         </Button>
