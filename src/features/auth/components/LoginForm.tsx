@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { loginUser } from "../api/authApi";
 import type { LoginPayload } from "../types/authTypes";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const LoginForm = () => {
   const [formData, setFormData] = useState<LoginPayload>({
@@ -11,14 +12,16 @@ export const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
+  
   // captures successful registration message
   const location = useLocation();
   const [successMessage, setSuccessMessage] = useState(
     location.state?.message || "",
   );
 
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     try {
       e.preventDefault();
 
@@ -36,11 +39,9 @@ export const LoginForm = () => {
         const user = response.data;
         if (user?.token) {
           localStorage.setItem("token", user.token);
-        }
-        if (user) {
           localStorage.setItem("user", JSON.stringify(user));
         }
-
+        queryClient.setQueryData(["authUser"], user);
         // navigate to dashboard
         navigate("/dashboard");
       }

@@ -10,8 +10,8 @@ import { FaAngleDown } from "react-icons/fa6";
 import { useState } from "react";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { MdOutlineFolderOpen } from "react-icons/md";
-import {PROJECTS} from "../../seed/project.ts";
-
+import { PROJECTS } from "../../seed/project.ts";
+import { useOrganizations } from "../../features/organization/hooks/useOrganizations.ts";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -47,17 +47,17 @@ const NAV_ITEMS = [
   },
 ];
 
-const ORGANIZATIONS = [
-  { id: "1", name: "Zeta Corporation" },
-  { id: "2", name: "Stark Pvt. ltd." },
-];
-
 export const Sidebar = ({ isOpen }: SidebarProps) => {
   const location = useLocation();
   const { openModal } = useModalStore();
 
+  const { organizationsData } = useOrganizations();
+  const organizations = organizationsData?.data.organizations || []
+
   const [openDropdown, setOpenDropdown] = useState<Record<string, boolean>>({});
-  const [openSubDropdown, setOpenSubDropdown] = useState<Record<string, boolean>>({});
+  const [openSubDropdown, setOpenSubDropdown] = useState<
+    Record<string, boolean>
+  >({});
 
   const toggleDropdown = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
@@ -86,27 +86,35 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
 
           return (
             <div key={item.id} className="flex flex-col w-full">
-              
               <div
                 className={`group flex items-center justify-between rounded-lg p-1 ${
-                  isActive ? "bg-app-item-active text-text-main" : "hover:bg-app-item-hover"
+                  isActive
+                    ? "bg-app-item-active text-text-main"
+                    : "hover:bg-app-item-hover"
                 }`}
               >
-               {item.dropDownIcon ? (
+                {item.dropDownIcon ? (
                   <div
                     onClick={(e) => toggleDropdown(e, item.id)}
                     className="flex items-center gap-2 flex-1 min-w-0 p-0.5 cursor-pointer select-none"
                   >
                     <span className="size-5 relative flex items-center justify-center shrink-0">
-                      <Icon className={`size-5 absolute transition-opacity duration-150 ${isDropdownOpen ? "opacity-0" : "opacity-100 group-hover:opacity-0"}`} />
-                      <span className={`size-5 absolute flex items-center justify-center ${isDropdownOpen ? "opacity-100 rotate-180 text-text-main" : "opacity-0 group-hover:opacity-100 text-text-ghost"}`}>
+                      <Icon
+                        className={`size-5 absolute transition-opacity duration-150 ${isDropdownOpen ? "opacity-0" : "opacity-100 group-hover:opacity-0"}`}
+                      />
+                      <span
+                        className={`size-5 absolute flex items-center justify-center ${isDropdownOpen ? "opacity-100 rotate-180 text-text-main" : "opacity-0 group-hover:opacity-100 text-text-ghost"}`}
+                      >
                         <FaAngleDown className="size-3.5" />
                       </span>
                     </span>
                     <p className="truncate">{item.name}</p>
                   </div>
                 ) : (
-                  <Link to={item.url} className="flex items-center gap-2 flex-1 min-w-0 p-0.5">
+                  <Link
+                    to={item.url}
+                    className="flex items-center gap-2 flex-1 min-w-0 p-0.5"
+                  >
                     <span className="size-5 flex items-center justify-center shrink-0">
                       <Icon className="size-5" />
                     </span>
@@ -114,7 +122,10 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                   </Link>
                 )}
 
-                <div className="flex items-center gap-1.5 px-1" onClick={(e) => e.stopPropagation()}>
+                <div
+                  className="flex items-center gap-1.5 px-1"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   {item.issueCount !== undefined && (
                     <span className="bg-app-button text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full text-center">
                       {item.issueCount}
@@ -132,26 +143,39 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                 </div>
               </div>
 
-               {item.dropDownIcon && isDropdownOpen && (
+              {item.dropDownIcon && isDropdownOpen && (
                 <div className="flex flex-col pl-4 mt-1 gap-1">
-                  {ORGANIZATIONS.map((org) => {
-                    const isOrgActive = location.pathname.startsWith(`/organization/${org.id}`);
+                  {organizations.map((org) => {
+                    const isOrgActive = location.pathname.startsWith(
+                      `/organization/${org.id}`,
+                    );
                     const isSubOpen = !!openSubDropdown[org.id];
-                    const filteredProjects = PROJECTS.filter((p) => p.organizationId === org.id);
+                    const filteredProjects = PROJECTS.filter(
+                      (p) => p.organizationId === org.id,
+                    );
 
                     return (
                       <div key={org.id} className="flex flex-col w-full">
-                        <div className={`flex items-center justify-between rounded-md p-1.5 ${
-                          isOrgActive ? "bg-app-item-active/50 text-text-main" : "hover:bg-app-item-hover"
-                        }`}>
-                            <button
-                              type="button"
-                              onClick={(e) => toggleSubDropdown(e, org.id)}
-                              className="size-4 flex items-center justify-center cursor-pointer text-text-ghost"
-                            >
-                              <FaAngleDown className={`size-3 ${isSubOpen ? "rotate-0" : "-rotate-90"}`} />
-                            </button>
-                          <Link to={`/organization/${org.id}`} className="flex items-center gap-2 flex-1 min-w-0">
+                        <div
+                          className={`flex items-center justify-between rounded-md p-1.5 ${
+                            isOrgActive
+                              ? "bg-app-item-active/50 text-text-main"
+                              : "hover:bg-app-item-hover"
+                          }`}
+                        >
+                          <button
+                            type="button"
+                            onClick={(e) => toggleSubDropdown(e, org.id)}
+                            className="size-4 flex items-center justify-center cursor-pointer text-text-ghost"
+                          >
+                            <FaAngleDown
+                              className={`size-3 ${isSubOpen ? "rotate-0" : "-rotate-90"}`}
+                            />
+                          </button>
+                          <Link
+                            to={`/organization/${org.id}`}
+                            className="flex items-center gap-2 flex-1 min-w-0"
+                          >
                             <HiOutlineOfficeBuilding className="size-4 text-text-ghost shrink-0" />
                             <span className="truncate text-xs">{org.name}</span>
                           </Link>
@@ -160,32 +184,57 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                         {isSubOpen && (
                           <div className="flex flex-col pl-6 mt-1 gap-1">
                             {filteredProjects.map((project) => {
-                              const isProjectActive = location.pathname.startsWith(`/projects/${project.id}`);
+                              const isProjectActive =
+                                location.pathname.startsWith(
+                                  `/projects/${project.id}`,
+                                );
                               return (
                                 <Link
                                   key={project.id}
                                   to={`/projects/${project.id}`}
                                   className={`p-1 flex items-center gap-2 rounded text-xs ${
-                                    isProjectActive ? "text-blue-500 font-bold" : "text-text-muted hover:text-text-main"
+                                    isProjectActive
+                                      ? "text-blue-500 font-bold"
+                                      : "text-text-muted hover:text-text-main"
                                   }`}
                                 >
                                   <MdOutlineFolderOpen className="size-3.5 text-text-ghost shrink-0" />
-                                  <span className="truncate flex-1">{project.name}</span>
+                                  <span className="truncate flex-1">
+                                    {project.name}
+                                  </span>
                                 </Link>
                               );
                             })}
                             {filteredProjects.length === 0 && (
-                              <span className="text-[11px] text-text-ghost pl-2 italic">No projects</span>
+                              <span className="text-[11px] text-text-ghost pl-2 italic">
+                                No projects
+                              </span>
                             )}
                           </div>
                         )}
                       </div>
                     );
                   })}
+                  {organizations.length === 0 && (
+                    <div className="flex flex-col items-start gap-1 p-2 text-text-ghost">
+                      <span className="text-xs pl-1">
+                        No organizations found
+                      </span>
+                      {AddIcon && (
+                        <button
+                          type="button"
+                          onClick={() => openModal("create_organization")}
+                          className="text-xs text-blue-500 hover:underline cursor-pointer flex items-center gap-1 mt-0.5"
+                        >
+                          <AddIcon className="size-3" />
+                          Create new
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
-
           );
         })}
       </nav>
