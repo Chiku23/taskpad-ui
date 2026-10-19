@@ -2,20 +2,20 @@ import { Link, useLocation, Outlet, useParams } from "react-router-dom";
 
 import { VscProject } from "react-icons/vsc";
 import { GoOrganization } from "react-icons/go";
+import { useOrganizations } from "../hooks/useOrganizations";
 
 const NAV_ITEMS = [
   {id: "1", name: "Projects", path: "project", icon: VscProject},
 ]
 
-const ORGANIZATIONS = [
-  { id: "1", name: "Zeta Corporation" },
-  { id: "2", name: "Stark Pvt. ltd." },
-];
-
 export const OrganizationLayout = () => {
-    const location = useLocation();
-    const {orgId} = useParams();
-    const currentOrg = ORGANIZATIONS.find((org) => org.id === orgId);
+  const location = useLocation();
+  const {orgId} = useParams();
+
+  const {organizationsData} = useOrganizations();
+  const organizations = organizationsData?.data.organizations || [];  
+  const currentOrg = organizations.find((org) => org.id === orgId);
+
   return (
     <div className="flex flex-col bg-app-canvas min-h-screen">
       <div className="sticky top-0 flex flex-col gap-2 border-b border-app-border bg-app-canvas pt-5 px-10">

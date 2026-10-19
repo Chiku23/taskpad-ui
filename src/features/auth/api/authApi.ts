@@ -40,3 +40,24 @@ export const registerUser = async(formData: RegisterPayload): Promise<RegisterRe
             throw new Error("Unexpected response from server. Please try again.");
         }
 }
+
+export const getUser = async() => {
+    const token = localStorage.getItem("token");
+    if(!token) {
+        throw new Error("No token found");
+    }
+    
+    const response = await fetch(`${BASE_URL}/me`, {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    if(!response.ok){
+        throw new Error("Failed to fetch");
+    }
+
+    return await response.json();
+}

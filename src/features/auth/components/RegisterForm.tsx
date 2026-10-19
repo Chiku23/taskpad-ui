@@ -14,7 +14,7 @@ export const RegisterForm = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     try {
       e.preventDefault();
       setErrorMessage("");
