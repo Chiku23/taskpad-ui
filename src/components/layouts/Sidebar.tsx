@@ -51,8 +51,8 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
   const location = useLocation();
   const { openModal } = useModalStore();
 
-  const { organizationsData } = useOrganizations();
-  const organizations = organizationsData?.data.organizations || []
+  const { organizationsData, isLoading, isError } = useOrganizations();
+  const organizations = organizationsData?.data.organizations || [];
 
   const [openDropdown, setOpenDropdown] = useState<Record<string, boolean>>({});
   const [openSubDropdown, setOpenSubDropdown] = useState<
@@ -71,7 +71,7 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
   return (
     <div
       {...(!isOpen ? { inert: true } : {})}
-      className={`bg-app-sidebar font-semibold border-r border-app-border overflow-hidden h-screen text-sm text-text-muted shadow-lg ${isOpen ? "w-64 p-4" : "w-0 p-0"}`}
+      className={`bg-app-sidebar font-semibold border-r border-app-border overflow-hidden h-screen text-sm text-text-muted shadow-lg ${isOpen ? "w-64 md:w-sm p-4" : "w-0 p-0"}`}
     >
       <nav className="flex flex-col gap-1">
         {/* sidebar items for navigation */}
@@ -145,7 +145,11 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
 
               {item.dropDownIcon && isDropdownOpen && (
                 <div className="flex flex-col pl-4 mt-1 gap-1">
-                  {organizations.map((org) => {
+                  {isLoading && <div>Loading organizations</div>}
+
+                  {isError && <div>Failed to load organization</div>}
+
+                  {!isLoading && !isError && organizations.map((org) => {
                     const isOrgActive = location.pathname.startsWith(
                       `/organization/${org.id}`,
                     );
@@ -153,7 +157,6 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                     const filteredProjects = PROJECTS.filter(
                       (p) => p.organizationId === org.id,
                     );
-
                     return (
                       <div key={org.id} className="flex flex-col w-full">
                         <div

@@ -13,5 +13,8 @@ export const getOrganizations = async(): Promise<GetOrganizationResponse> => {
         }
     });
 
+    if(!response.ok){
+        throw new Error("Failed to fetch organizations");
+    }
     return await response.json();
 }

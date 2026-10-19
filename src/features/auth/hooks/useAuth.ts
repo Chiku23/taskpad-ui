@@ -4,7 +4,7 @@ import { getUser } from "../api/authApi"
 export const useAuth = () => {
     const token = localStorage.getItem("token");
 
-    const {data: user, isError} = useQuery({
+    const {data: user, isPending, isSuccess} = useQuery({
         queryKey: ["authUser"],
         queryFn: getUser,
         enabled: Boolean(token),
@@ -13,6 +13,7 @@ export const useAuth = () => {
 
     return {
         user,
-        isAuthenticated: Boolean(token) && !isError
+        isPending,
+        isAuthenticated: Boolean(token) && isSuccess
     }
 }

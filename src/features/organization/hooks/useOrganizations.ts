@@ -4,13 +4,15 @@ import type{ GetOrganizationResponse } from "../types/organizationTypes";
 
 // fetch existing organization belongs to authenticated user
 export const useOrganizations = () => {
-    const {data: organizationsData} = useQuery<GetOrganizationResponse>({
+    const {data: organizationsData, isLoading, isError} = useQuery<GetOrganizationResponse>({
         queryKey: ["organizations"],
         queryFn: getOrganizations,
         retry: false
     })
 
     return{
-        organizationsData
+        organizationsData,
+        isLoading,
+        isError
     }
 }

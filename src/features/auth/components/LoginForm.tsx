@@ -35,6 +35,8 @@ export const LoginForm = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
       } else {
+        //clear cached data from previous session
+        queryClient.clear();
         // Store the token and user in local storage after successful login
         const user = response.data;
         if (user?.token) {
