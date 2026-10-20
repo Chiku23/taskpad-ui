@@ -52,3 +52,20 @@ export const getOrganization = async(slug: string) => {
 
     return await response.json();
 }
+
+export const updateOrganization = async({name, slug}: CreateOrganizationPayload) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`${BASE_URL}/organization/${slug}`, {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            name,
+            slug
+        })
+    })
+
+    return await response.json();
+}
