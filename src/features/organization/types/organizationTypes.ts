@@ -10,3 +10,8 @@ export type GetOrganizationResponse = {
         organizations: Organization[];
     }
 }
+
+export type CreateOrganizationPayload = {
+    name: string,
+    slug: string
+}

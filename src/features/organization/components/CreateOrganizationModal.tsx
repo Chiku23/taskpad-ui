@@ -1,13 +1,21 @@
+import { useCreateOrganization } from "../hooks/useCreateOrganization";
+import { useState } from "react"; 
+import { generateSlug } from "../../../utils/generateSlug";
+
 interface CreateOrganizationModalProps {
   onSuccess: () => void;
 }
 
 export const CreateOrganizationModal = ({ onSuccess }: CreateOrganizationModalProps) => {
+  const [orgName, setOrgName] = useState("");
+  const orgSlugName = generateSlug(orgName);
+
+  const {mutateCreateOrganization} = useCreateOrganization();
 
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
-    
-    
+
+    mutateCreateOrganization({name: orgName, slug: orgSlugName});
     //Call onSuccess to close the modal shell automatically
     onSuccess();
   };
@@ -21,6 +29,8 @@ export const CreateOrganizationModal = ({ onSuccess }: CreateOrganizationModalPr
         </label>
         <input
           id="org-name"
+          value={orgName}
+          onChange={(e) => setOrgName(e.target.value)}
           className="text-text-main text-sm border border-app-border bg-app-input-bg px-4 py-2 rounded-lg font-semibold w-full outline-none"
           type="text"
           placeholder="e.g. Zeta pvt. ltd."
