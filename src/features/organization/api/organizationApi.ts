@@ -56,7 +56,7 @@ export const getOrganization = async(slug: string) => {
 export const updateOrganization = async({name, slug}: CreateOrganizationPayload) => {
     const token = localStorage.getItem("token");
     const response = await fetch(`${BASE_URL}/organization/${slug}`, {
-        method: "GET",
+        method: "POST",
         headers: {
             "Content-type": "application/json",
             "Authorization": `Bearer ${token}`
@@ -65,6 +65,19 @@ export const updateOrganization = async({name, slug}: CreateOrganizationPayload)
             name,
             slug
         })
+    })
+
+    return await response.json();
+}
+
+export const deleteOrganization = async(slug: string) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(`${BASE_URL}/organization/${slug}`, {
+        method: "DELETE",
+        headers: {
+            "Content-type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
     })
 
     return await response.json();
