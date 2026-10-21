@@ -1,15 +1,21 @@
+import { useCreateOrganization } from "../hooks/useCreateOrganization";
+import { useState } from "react"; 
+import { generateSlug } from "../../../utils/generateSlug";
+
 interface CreateOrganizationModalProps {
   onSuccess: () => void;
 }
 
 export const CreateOrganizationModal = ({ onSuccess }: CreateOrganizationModalProps) => {
+  const [orgName, setOrgName] = useState("");
+  const orgSlugName = generateSlug(orgName);
+
+  const {mutateCreateOrganization, isPending} = useCreateOrganization();
 
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
-    
-    
-    //Call onSuccess to close the modal shell automatically
-    onSuccess();
+
+    mutateCreateOrganization({name: orgName, slug: orgSlugName}, {onSuccess});
   };
 
   return (
@@ -21,6 +27,8 @@ export const CreateOrganizationModal = ({ onSuccess }: CreateOrganizationModalPr
         </label>
         <input
           id="org-name"
+          value={orgName}
+          onChange={(e) => setOrgName(e.target.value)}
           className="text-text-main text-sm border border-app-border bg-app-input-bg px-4 py-2 rounded-lg font-semibold w-full outline-none"
           type="text"
           placeholder="e.g. Zeta pvt. ltd."
@@ -28,7 +36,8 @@ export const CreateOrganizationModal = ({ onSuccess }: CreateOrganizationModalPr
         />
       </div>
       <button 
-        type="submit" 
+        type="submit"
+        disabled={isPending} 
         className="mt-6 w-full bg-app-button hover:bg-app-button-hover text-black font-semibold rounded-lg px-4 py-2 text-sm cursor-pointer"
       >
         Create Organization
