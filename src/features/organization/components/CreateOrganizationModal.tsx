@@ -10,14 +10,12 @@ export const CreateOrganizationModal = ({ onSuccess }: CreateOrganizationModalPr
   const [orgName, setOrgName] = useState("");
   const orgSlugName = generateSlug(orgName);
 
-  const {mutateCreateOrganization} = useCreateOrganization();
+  const {mutateCreateOrganization, isPending} = useCreateOrganization();
 
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
 
-    mutateCreateOrganization({name: orgName, slug: orgSlugName});
-    //Call onSuccess to close the modal shell automatically
-    onSuccess();
+    mutateCreateOrganization({name: orgName, slug: orgSlugName}, {onSuccess});
   };
 
   return (
@@ -38,7 +36,8 @@ export const CreateOrganizationModal = ({ onSuccess }: CreateOrganizationModalPr
         />
       </div>
       <button 
-        type="submit" 
+        type="submit"
+        disabled={isPending} 
         className="mt-6 w-full bg-app-button hover:bg-app-button-hover text-black font-semibold rounded-lg px-4 py-2 text-sm cursor-pointer"
       >
         Create Organization

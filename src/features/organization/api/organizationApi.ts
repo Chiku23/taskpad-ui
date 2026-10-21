@@ -50,6 +50,10 @@ export const getOrganization = async(slug: string) => {
         }
     })
 
+    if(!response.ok){
+        throw new Error("Failed to fetch organization")
+    }
+
     return await response.json();
 }
 
@@ -67,6 +71,10 @@ export const updateOrganization = async({name, slug}: CreateOrganizationPayload)
         })
     })
 
+    if(!response.ok){
+        throw new Error("Failed to update organization")
+    }
+
     return await response.json();
 }
 
@@ -80,6 +88,10 @@ export const deleteOrganization = async(slug: string) => {
         },
     })
 
+    if(!response.ok){
+        throw new Error("Failed to delete organization")
+    }
+
     return await response.json();
 }
 
@@ -92,6 +104,10 @@ export const getOrganizationMembers = async(slug: string) => {
             "Authorization": `Bearer ${token}`
         }
     })
+
+    if(!response.ok){
+        throw new Error("Failed to get organization member")
+    }
 
     return await response.json();
 }
