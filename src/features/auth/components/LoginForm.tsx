@@ -81,7 +81,8 @@ export const LoginForm = () => {
         <div className="text-red-400 text-sm">{errorMessage}</div>
       )}      
 
-      <button className={`bg-app-button hover:bg-app-button-hover py-2 mt-2 rounded-lg shadow-lg cursor-pointer ${loading ? "opacity-50 cursor-not-allowed" : ""}`}>
+      <button className={`bg-app-button hover:bg-app-button-hover py-2 mt-2 rounded-lg shadow-lg cursor-pointer ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+        disabled={loading}>
         {loading ? "Logging in..." : "Login"}
       </button>
     </form>
