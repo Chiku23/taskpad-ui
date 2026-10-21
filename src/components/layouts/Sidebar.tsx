@@ -59,13 +59,13 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
     Record<string, boolean>
   >({});
 
-  const toggleDropdown = (e: React.MouseEvent, id: string) => {
+  const toggleDropdown = (e: React.MouseEvent, slug: string) => {
     e.preventDefault();
-    setOpenDropdown((prev) => ({ ...prev, [id]: !prev[id] }));
+    setOpenDropdown((prev) => ({ ...prev, [slug]: !prev[slug] }));
   };
-  const toggleSubDropdown = (e: React.MouseEvent, id: string) => {
+  const toggleSubDropdown = (e: React.MouseEvent, slug: string) => {
     e.preventDefault();
-    setOpenSubDropdown((prev) => ({ ...prev, [id]: !prev[id] }));
+    setOpenSubDropdown((prev) => ({ ...prev, [slug]: !prev[slug] }));
   };
 
   return (
@@ -151,12 +151,13 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
 
                   {!isLoading && !isError && organizations.map((org) => {
                     const isOrgActive = location.pathname.startsWith(
-                      `/organization/${org.id}`,
+                      `/organization/${org.slug}`,
                     );
                     const isSubOpen = !!openSubDropdown[org.id];
                     const filteredProjects = PROJECTS.filter(
                       (p) => p.organizationId === org.id,
                     );
+                    console.log(filteredProjects)
                     return (
                       <div key={org.id} className="flex flex-col w-full">
                         <div
@@ -168,7 +169,7 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                         >
                           <button
                             type="button"
-                            onClick={(e) => toggleSubDropdown(e, org.id)}
+                            onClick={(e) => toggleSubDropdown(e, org.slug)}
                             className="size-4 flex items-center justify-center cursor-pointer text-text-ghost"
                           >
                             <FaAngleDown
@@ -176,7 +177,7 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                             />
                           </button>
                           <Link
-                            to={`/organization/${org.id}`}
+                            to={`/organization/${org.slug}`}
                             className="flex items-center gap-2 flex-1 min-w-0"
                           >
                             <HiOutlineOfficeBuilding className="size-4 text-text-ghost shrink-0" />

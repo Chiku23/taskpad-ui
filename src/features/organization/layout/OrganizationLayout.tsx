@@ -10,11 +10,11 @@ const NAV_ITEMS = [
 
 export const OrganizationLayout = () => {
   const location = useLocation();
-  const {orgId} = useParams();
+  const {orgSlug} = useParams();
 
   const {organizationsData} = useOrganizations();
   const organizations = organizationsData?.data.organizations || [];  
-  const currentOrg = organizations.find((org) => org.id === orgId);
+  const currentOrg = organizations.find((org) => org.slug === orgSlug);
 
   return (
     <div className="flex flex-col bg-app-canvas min-h-screen">

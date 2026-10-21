@@ -44,7 +44,7 @@ function App() {
               </Route>
 
               <Route
-                path="/organization/:orgId"
+                path="/organization/:orgSlug"
                 element={<OrganizationLayout />}
               >
                 <Route index element={<Navigate to={"project"} replace />} />
