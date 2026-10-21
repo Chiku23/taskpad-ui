@@ -9,6 +9,7 @@ export const LoginForm = () => {
     emailInput: "",
     passwordInput: "",
   });
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
@@ -27,27 +28,20 @@ export const LoginForm = () => {
 
       setErrorMessage("");
       setSuccessMessage("");
+      setLoading(true);
 
       const response = await loginUser(formData);
-      if (response.status == "false") {
+      if (response.status === "false") {
         setErrorMessage(response.message);
-        // reset local storage
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
+        setLoading(false);
       } else {
-        //clear cached data from previous session
+        setLoading(false);
         queryClient.clear();
-        // Store the token and user in local storage after successful login
-        const user = response.data;
-        if (user?.token) {
-          localStorage.setItem("token", user.token);
-          localStorage.setItem("user", JSON.stringify(user));
-        }
-        queryClient.setQueryData(["authUser"], user);
-        // navigate to dashboard
+        queryClient.setQueryData(["authUser"], response);
         navigate("/dashboard");
       }
     } catch (error) {
+      setLoading(false);
       setErrorMessage(error instanceof Error ? error.message : "Error occured");
     }
   };
@@ -68,6 +62,7 @@ export const LoginForm = () => {
       <input
         className="bg-app-input-bg px-4 py-2 border-1 border-app-input-border outline-none rounded-lg"
         type="password"
+        id="password"
         placeholder="Enter your Password"
         value={formData.passwordInput}
         onChange={(e) =>
@@ -76,20 +71,18 @@ export const LoginForm = () => {
         required
       />
 
-      <div className="min-h-10 flex flex-col justify-center">
-        {/* captured registration message */}
-        {successMessage && (
-          <div className="text-sm text-green-500">{successMessage}</div>
-        )}
+      {/* captured registration message */}
+      {successMessage && (
+        <div className="text-sm text-green-500">{successMessage}</div>
+      )}
 
-        {/* show login related message */}
-        {errorMessage && (
-          <div className="text-red-500 text-sm">{errorMessage}</div>
-        )}
-      </div>
+      {/* show login related message */}
+      {errorMessage && (
+        <div className="text-red-400 text-sm">{errorMessage}</div>
+      )}      
 
-      <button className="bg-app-button hover:bg-app-button-hover py-2 mt-2 rounded-lg shadow-lg cursor-pointer">
-        Login
+      <button className={`bg-app-button hover:bg-app-button-hover py-2 mt-2 rounded-lg shadow-lg cursor-pointer ${loading ? "opacity-50 cursor-not-allowed" : ""}`}>
+        {loading ? "Logging in..." : "Login"}
       </button>
     </form>
   );
