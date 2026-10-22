@@ -59,10 +59,14 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
     Record<string, boolean>
   >({});
 
+  //dropdown for navbar default items
   const toggleDropdown = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     setOpenDropdown((prev) => ({ ...prev, [id]: !prev[id] }));
   };
+
+  //dropdown for subitems of nav default items
+  //i.e "projects" inside "organization"
   const toggleSubDropdown = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     setOpenSubDropdown((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -151,12 +155,13 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
 
                   {!isLoading && !isError && organizations.map((org) => {
                     const isOrgActive = location.pathname.startsWith(
-                      `/organization/${org.id}`,
+                      `/organization/${org.slug}`,
                     );
                     const isSubOpen = !!openSubDropdown[org.id];
                     const filteredProjects = PROJECTS.filter(
                       (p) => p.organizationId === org.id,
                     );
+                    console.log(filteredProjects)
                     return (
                       <div key={org.id} className="flex flex-col w-full">
                         <div
@@ -176,7 +181,7 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                             />
                           </button>
                           <Link
-                            to={`/organization/${org.id}`}
+                            to={`/organization/${org.slug}`}
                             className="flex items-center gap-2 flex-1 min-w-0"
                           >
                             <HiOutlineOfficeBuilding className="size-4 text-text-ghost shrink-0" />
