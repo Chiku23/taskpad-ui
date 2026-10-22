@@ -6,16 +6,26 @@ import { ModalRegistry } from "../modals/ModalRegistry";
 
 export const AppLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [selectedOrganizationName, setSelectedOrganizationName] = useState<string | null>("Create An Organization");
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
+  };
+
+  const onOrganizationChange = () => {
+    console.log("hello");
   };
 
   return (
 
     //no full window scrolling
     <div className="relative flex flex-col h-screen w-full overflow-hidden font-public-sans">
-      <Topbar onToggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+      <Topbar
+        onToggleSidebar={toggleSidebar}
+        isSidebarOpen={isSidebarOpen}
+        onOrganizationChange={onOrganizationChange}
+        selectedOrganizationName={selectedOrganizationName}
+      />
       <div className="flex flex-1 min-h-0">
         <Sidebar isOpen={isSidebarOpen} />
 

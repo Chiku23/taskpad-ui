@@ -1,7 +1,7 @@
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle, FaRegBuilding } from "react-icons/fa";
 
 import { CreateTaskButton } from "../../features/dashboard/components/CreateTaskButton";
 import { SearchBar } from "../ui/SearchBar";
@@ -9,15 +9,18 @@ import { SearchBar } from "../ui/SearchBar";
 interface TopbarProps {
   onToggleSidebar: () => void;
   isSidebarOpen: boolean;
+  onOrganizationChange?: () => void;
+  selectedOrganizationName?: string;
 }
 
-export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
+export const Topbar = ({ onToggleSidebar, isSidebarOpen, onOrganizationChange, selectedOrganizationName }: TopbarProps) => {
   return (
     <div className="p-3 sticky top-0 w-full bg-app-topbar grid grid-cols-3 items-center border-y border-app-border">
       {/*Sidebar toggle & Logo */}
       <div className="flex items-center gap-4 text-text-muted">
         <button
           onClick={onToggleSidebar}
+          title={isSidebarOpen ? "Close Sidebar" : "Open sidebar"}
           aria-label={isSidebarOpen ? "Close Sidebar" : "Open sidebar"}
           className="hover:opacity-80 transition-opacity cursor-pointer">
           {isSidebarOpen ? (
@@ -29,12 +32,20 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
         {/* Logo */}
         <div className="flex flex-col justify-center cursor-pointer">
           <p className="text-xl font-semibold text-app-brand m-0 leading-none">
-            Taskpad
-          </p>
-          <p className="text-text-ghost text-xs m-0 mt-1 leading-none">
-            Manage your all task smartly
+            TaskPad
           </p>
         </div>
+        {/* Organization Button */}
+        <button
+          onClick={onOrganizationChange}
+          className="hover:opacity-80 transition-opacity cursor-pointer"
+          title="Change Organization"
+          aria-label="Change Organization"
+        >
+          <FaRegBuilding className="size-5" />
+        </button>
+        {/* TODO: Selected Organization Name */}
+        <p>{selectedOrganizationName}</p>
       </div>
 
       {/* Search & Create Button */}
