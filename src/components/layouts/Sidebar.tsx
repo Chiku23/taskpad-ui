@@ -59,13 +59,17 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
     Record<string, boolean>
   >({});
 
-  const toggleDropdown = (e: React.MouseEvent, slug: string) => {
+  //dropdown for navbar default items
+  const toggleDropdown = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
-    setOpenDropdown((prev) => ({ ...prev, [slug]: !prev[slug] }));
+    setOpenDropdown((prev) => ({ ...prev, [id]: !prev[id] }));
   };
-  const toggleSubDropdown = (e: React.MouseEvent, slug: string) => {
+
+  //dropdown for subitems of nav default items
+  //i.e "projects" inside "organization"
+  const toggleSubDropdown = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
-    setOpenSubDropdown((prev) => ({ ...prev, [slug]: !prev[slug] }));
+    setOpenSubDropdown((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   return (
@@ -169,7 +173,7 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                         >
                           <button
                             type="button"
-                            onClick={(e) => toggleSubDropdown(e, org.slug)}
+                            onClick={(e) => toggleSubDropdown(e, org.id)}
                             className="size-4 flex items-center justify-center cursor-pointer text-text-ghost"
                           >
                             <FaAngleDown
