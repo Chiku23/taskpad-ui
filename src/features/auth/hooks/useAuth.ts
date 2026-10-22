@@ -2,18 +2,16 @@ import { useQuery } from "@tanstack/react-query"
 import { getUser } from "../api/authApi"
 
 export const useAuth = () => {
-    const token = localStorage.getItem("token");
-
-    const {data: user, isPending, isSuccess} = useQuery({
+    const { data, isPending, isSuccess, isError } = useQuery({
         queryKey: ["authUser"],
         queryFn: getUser,
-        enabled: Boolean(token),
-        retry: false
-    })
+        retry: false,
+        staleTime: 1000 * 60 * 5,
+    });
 
     return {
-        user,
+        user: data?.data ?? null,
         isPending,
-        isAuthenticated: Boolean(token) && isSuccess
-    }
-}
+        isAuthenticated: isSuccess && !isError && Boolean(data?.data),
+    };
+};

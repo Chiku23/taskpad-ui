@@ -4,13 +4,13 @@ import type { GetOrganizationResponse, CreateOrganizationPayload } from "../type
 
 // Fetch all organization owned by authenticated user
 export const getOrganizations = async(): Promise<GetOrganizationResponse> => {
-    const token = localStorage.getItem("token");
     const response = await fetch(`${BASE_URL}/organization`, {
         method: "GET",
         headers: {
-            "Content-type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        credentials: "include"
     });
 
     if(!response.ok){
@@ -20,13 +20,13 @@ export const getOrganizations = async(): Promise<GetOrganizationResponse> => {
 }
 
 export const createOrganization = async({name, slug} : CreateOrganizationPayload) => {
-    const token = localStorage.getItem("token");
     const response = await fetch(`${BASE_URL}/organization/create`, {
         method: "POST",
         headers: {
-            "Content-type": "application/json",
-            "Authorization": `Bearer ${token}`
+            "Content-Type": "application/json",
+            "Accept": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
             name,
             slug
@@ -41,13 +41,13 @@ export const createOrganization = async({name, slug} : CreateOrganizationPayload
 }
 
 export const getOrganization = async(slug: string) => {
-    const token = localStorage.getItem("token");
     const response = await fetch(`${BASE_URL}/organization/${slug}`, {
         method: "GET",
         headers: {
-            "Content-type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        credentials: "include"
     })
 
     if(!response.ok){
@@ -58,13 +58,13 @@ export const getOrganization = async(slug: string) => {
 }
 
 export const updateOrganization = async({name, slug}: CreateOrganizationPayload) => {
-    const token = localStorage.getItem("token");
     const response = await fetch(`${BASE_URL}/organization/${slug}`, {
         method: "POST",
         headers: {
-            "Content-type": "application/json",
-            "Authorization": `Bearer ${token}`
+            "Content-Type": "application/json",
+            "Accept": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
             name,
             slug
@@ -79,13 +79,13 @@ export const updateOrganization = async({name, slug}: CreateOrganizationPayload)
 }
 
 export const deleteOrganization = async(slug: string) => {
-    const token = localStorage.getItem("token");
     const response = await fetch(`${BASE_URL}/organization/${slug}`, {
         method: "DELETE",
         headers: {
-            "Content-type": "application/json",
-            "Authorization": `Bearer ${token}`
+            "Content-Type": "application/json",
+            "Accept": "application/json",
         },
+        credentials: "include"
     })
 
     if(!response.ok){
@@ -96,13 +96,13 @@ export const deleteOrganization = async(slug: string) => {
 }
 
 export const getOrganizationMembers = async(slug: string) => {
-    const token = localStorage.getItem("token");
     const response = await fetch(`${BASE_URL}/organization/${slug}/members`, {
         method: "GET",
         headers: {
-            "Content-type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        credentials: "include"
     })
 
     if(!response.ok){

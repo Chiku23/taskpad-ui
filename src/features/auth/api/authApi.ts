@@ -11,8 +11,10 @@ export const loginUser = async(formData: LoginPayload): Promise<LoginResponse> =
         const response = await fetch(`${BASE_URL}/login`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Accept": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify({
                 email: formData.emailInput,
                 password: formData.passwordInput
@@ -25,8 +27,10 @@ export const registerUser = async(formData: RegisterPayload): Promise<RegisterRe
         const response = await fetch(`${BASE_URL}/register`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Accept": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify({
                 name: formData.nameInput,
                 email: formData.emailInput,
@@ -42,18 +46,15 @@ export const registerUser = async(formData: RegisterPayload): Promise<RegisterRe
 }
 
 export const getUser = async() => {
-    const token = localStorage.getItem("token");
-    if(!token) {
-        throw new Error("No token found");
-    }
     
     const response = await fetch(`${BASE_URL}/me`, {
         method: "GET",
         headers: {
-            "Content-type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-    })
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        credentials: "include"
+    });
 
     if(!response.ok){
         throw new Error("Failed to fetch");
