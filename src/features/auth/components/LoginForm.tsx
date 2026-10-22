@@ -37,7 +37,7 @@ export const LoginForm = () => {
       } else {
         setLoading(false);
         queryClient.clear();
-        queryClient.setQueryData(["authUser"], response.data);
+        queryClient.setQueryData(["authUser"], response);
         navigate("/dashboard");
       }
     } catch (error) {
