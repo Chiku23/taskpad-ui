@@ -17,16 +17,6 @@
 
 ---
 
-## UI Previews
-
-### Homepage / Dashboard Preview
-![Homepage](docs/images/TaskPad-Design1.png)
-
-### Kanban Board Preview
-![Board](docs/images/TaskPad-Design-Board.png)
-
----
-
 ## Tech Stack
 
 - **Framework**: React 19 + TypeScript
@@ -89,9 +79,3 @@ taskpad/
 ├── tsconfig.json
 └── vite.config.ts
 ```
-
----
-
-## Related Repositories
-
-- [TaskPad Backend API](../taskpad-api/README.md) — Laravel 12 REST API with Swagger / OpenAPI support.
