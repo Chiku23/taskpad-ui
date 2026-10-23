@@ -3,6 +3,7 @@ import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
 import { useState } from "react";
 import { ModalRegistry } from "../modals/ModalRegistry";
+import { useModalStore } from "../../stores/useModalStore";
 
 export const AppLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -13,7 +14,8 @@ export const AppLayout = () => {
   };
 
   const onOrganizationChange = () => {
-    console.log("hello");
+    // TODO: Open organization modal
+    useModalStore.getState().openModal("create_organization");
   };
 
   return (
