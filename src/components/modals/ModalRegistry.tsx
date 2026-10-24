@@ -4,10 +4,10 @@ import { ModalShell } from "./ModalShell";
 import { CreateOrganizationModal } from "../../features/organization/components/CreateOrganizationModal";
 import { CreateProjectModal } from "../../features/organization/components/CreateProjectModal";
 import { CreateTaskModal } from "../../features/dashboard/components/CreateTaskModal";
+import { AddOrgMemberModal } from "../../features/organization/components/AddOrgMemberModal";
 
 export const ModalRegistry = () => {
     const {activeModal, modalData, closeModal} = useModalStore();
-
     if(!activeModal) return null;
 
     const renderModal = () => {
@@ -18,6 +18,8 @@ export const ModalRegistry = () => {
                 return <CreateTaskModal onSuccess={closeModal}/>
             case "create_project":
                 return <CreateProjectModal onSuccess={closeModal}/>
+            case "add_org_member":
+                return <AddOrgMemberModal onSuccess={closeModal}/>
             default:
                 return null;
         }
@@ -31,6 +33,8 @@ export const ModalRegistry = () => {
                 return modalData ? "Edit Task Details" : "Create New Task";
             case "create_project":
                 return modalData ? "Edit Project Details" : "Add New Project";
+            case "add_org_member":
+                return modalData?.orgName ? `Add Member To ${modalData.orgName}` : "Add Member"
             default:
                 return "";
         }
