@@ -1,5 +1,5 @@
 import { BASE_URL } from "../../../lib/apiClient";
-import type { GetOrganizationResponse, CreateOrganizationPayload } from "../types/organizationTypes";
+import type { GetOrganizationResponse, CreateOrganizationPayload, AddOrgMemberPayload } from "../types/organizationTypes";
 
 
 // Fetch all organization owned by authenticated user
@@ -107,6 +107,26 @@ export const getOrganizationMembers = async(slug: string) => {
 
     if(!response.ok){
         throw new Error("Failed to get organization member")
+    }
+
+    return await response.json();
+}
+export const addOrgMember = async({slug, email, role}: AddOrgMemberPayload) => {
+    const response = await fetch(`${BASE_URL}/organization/${slug}/members`, {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json",
+            "Accept": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({
+            email,
+            role
+        })
+    })
+
+    if(!response.ok){
+        throw new Error("Failed to add member to organization");
     }
 
     return await response.json();

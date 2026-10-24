@@ -36,7 +36,7 @@ function App() {
               <Route path="/activity" element={<ActivityPage />} />
               <Route path="/issues" element={<IssuesPage />} />
 
-              <Route path="/projects/:projectId" element={<ProjectLayout />}>
+              <Route path="/projects/:projectSlug" element={<ProjectLayout />}>
                 <Route index element={<Navigate to={"summary"} replace />} />
                 <Route path="summary" element={<SummaryPage />} />
                 <Route path="list" element={<TaskListPage />} />
@@ -45,8 +45,7 @@ function App() {
 
               <Route
                 path="/organization/:orgSlug"
-                element={<OrganizationLayout />}
-              >
+                element={<OrganizationLayout />}>
                 <Route index element={<Navigate to={"project"} replace />} />
                 <Route path="project" element={<ProjectListPage />} />
               </Route>
