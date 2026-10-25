@@ -35,9 +35,17 @@ export const Dropdown = ({ id, trigger, children }: DropdownProps) => {
   return (
     <div className="relative inline-block" ref={dropdownRef}>
       {/* Fires layout state update in Zustand store */}
-      <div onClick={() => toggleDropdown(id)} className="cursor-pointer">
+      <button 
+      type="button"
+      onClick={(e) => {
+        toggleDropdown(id);
+        if (isOpen) {
+          e.currentTarget.blur();
+        }
+      }} 
+      className="cursor-pointer focus:ring rounded-md">
         {trigger}
-      </div>
+      </button>
 
       {isOpen && (
         <div
