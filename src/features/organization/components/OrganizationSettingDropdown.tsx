@@ -3,17 +3,23 @@ import { IoPersonOutline, IoSettingsOutline, IoTrash, IoEllipsisHorizontal } fro
 import { useModalStore } from "../../../stores/useModalStore";
 import { useOrganization } from "../hooks/useOrganization";
 import { useParams } from "react-router-dom";
-import { useGetOrganizationMembers } from "../hooks/useGetOrganizationMembers";
 
 export const OrganizationSettingDropdown = () => {
   const {orgSlug} = useParams();
   const {openModal} = useModalStore();
 
   const {organization} = useOrganization(orgSlug ?? "")
-  const {organizationMembersData} = useGetOrganizationMembers(orgSlug || "");
 
-  const organizationMembers = organizationMembersData?.data?.members;
-  const currentOrgName = organization?.data?.organization?.name;
+  const currentOrg = organization?.data?.organization;
+
+  const handleAddMember = () => {
+    if(currentOrg){
+      openModal({
+        activeModal: "add_org_member",
+        modalData: currentOrg
+      })
+    }
+  }
   return (
     <Dropdown
       id="org-setting" // Unique ID registered in Zustand
@@ -25,7 +31,7 @@ export const OrganizationSettingDropdown = () => {
     >
       <ul className="flex flex-col gap-0.5">
         <li 
-        onClick={() => openModal("add_org_member", {orgName: currentOrgName, orgMembers: organizationMembers})}
+        onClick={handleAddMember}
         className="flex items-center gap-2 px-4 py-2 hover:bg-app-border cursor-pointer">
             <IoPersonOutline className="size-4"/>
             <span>Add Member</span>

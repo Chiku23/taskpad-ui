@@ -21,7 +21,10 @@ export const ProjectListPage = () => {
         </div>
         <button
           className="border border-app-border px-4 py-2 rounded-md bg-app-button cursor-pointer text-black font-semibold text-sm hover:brightness-95 shadow-sm"
-          onClick={() => openModal("create_project")}
+          onClick={() => openModal({
+            activeModal: "create_project",
+            modalData: null
+          })}
         >
           Add Project
         </button>

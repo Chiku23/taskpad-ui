@@ -1,9 +1,15 @@
 import { BASE_URL } from "../../../lib/apiClient";
-import type { GetOrganizationResponse, CreateOrganizationPayload, AddOrgMemberPayload } from "../types/organizationTypes";
+import type { 
+    CreateOrganizationPayload,
+    AddOrgMemberPayload, 
+    GetOrganizationResponse,
+    GetOrganizationsResponse, 
+    GetOrganizationMemberResponse
+ } from "../types/organizationTypes";
 
 
 // Fetch all organization owned by authenticated user
-export const getOrganizations = async(): Promise<GetOrganizationResponse> => {
+export const getOrganizations = async(): Promise<GetOrganizationsResponse> => {
     const response = await fetch(`${BASE_URL}/organization`, {
         method: "GET",
         headers: {
@@ -40,7 +46,7 @@ export const createOrganization = async({name, slug} : CreateOrganizationPayload
     return await response.json();
 }
 
-export const getOrganization = async(slug: string) => {
+export const getOrganization = async(slug: string): Promise<GetOrganizationResponse> => {
     const response = await fetch(`${BASE_URL}/organization/${slug}`, {
         method: "GET",
         headers: {
@@ -95,7 +101,7 @@ export const deleteOrganization = async(slug: string) => {
     return await response.json();
 }
 
-export const getOrganizationMembers = async(slug: string) => {
+export const getOrganizationMembers = async(slug: string): Promise<GetOrganizationMemberResponse> => {
     const response = await fetch(`${BASE_URL}/organization/${slug}/members`, {
         method: "GET",
         headers: {

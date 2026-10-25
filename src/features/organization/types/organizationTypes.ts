@@ -1,9 +1,13 @@
 export type OrgRole = "admin" | "member";
-
+//Data models
 export type Organization = {
     id: number;
     name: string,
-    slug: string
+    slug: string,
+    owner_id: number,
+    avatar_url?: string,
+    created_at?: string,
+    updated_at?: string
 }
 
 export type OrganizationMember = {
@@ -15,7 +19,9 @@ export type OrganizationMember = {
     created_at: string;
     updated_at: string;
 }
-export type GetOrganizationResponse = {
+
+//Api responses(Response types)
+export type GetOrganizationsResponse = {
     status: string,
     message: string,
     data: {
@@ -23,6 +29,23 @@ export type GetOrganizationResponse = {
     }
 }
 
+export type GetOrganizationResponse = {
+    status: string;
+    message: string;
+    data: {
+        organization: Organization
+    }
+}
+
+export type GetOrganizationMemberResponse = {
+    status: string;
+    message: string;
+    data: {
+        members: OrganizationMember[]
+    }
+}
+
+//Api payloads(Request types)
 export type CreateOrganizationPayload = {
     name: string,
     slug: string

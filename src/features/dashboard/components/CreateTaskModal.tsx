@@ -43,7 +43,7 @@ export const CreateTaskModal = ({ onSuccess }: CreateProjectModalProps) => {
             Select
           </option>
           {PROJECTS.map((project) => (
-            <option value={project.name}>{project.name}</option>
+            <option key={project.id} value={project.name}>{project.name}</option>
           ))}
         </select>
         <label

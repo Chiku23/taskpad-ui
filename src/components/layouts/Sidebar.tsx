@@ -136,7 +136,10 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                   {AddIcon && (
                     <button
                       type="button"
-                      onClick={() => openModal("create_organization")}
+                      onClick={() => openModal({
+                        activeModal: "create_organization",
+                        modalData: null
+                      })}
                       className="cursor-pointer hover:bg-app-item-hover rounded p-0.5 transition-colors"
                     >
                       <AddIcon className="size-4 text-text-ghost hover:text-text-muted" />
@@ -197,7 +200,10 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                       {AddIcon && (
                         <button
                           type="button"
-                          onClick={() => openModal("create_organization")}
+                          onClick={() => openModal({
+                            activeModal: "create_organization",
+                            modalData: null
+                          })}
                           className="text-xs text-blue-500 hover:underline cursor-pointer flex items-center gap-1 mt-0.5"
                         >
                           <AddIcon className="size-3" />
