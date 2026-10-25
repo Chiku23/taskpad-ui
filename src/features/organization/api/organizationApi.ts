@@ -1,9 +1,15 @@
 import { BASE_URL } from "../../../lib/apiClient";
-import type { GetOrganizationResponse, CreateOrganizationPayload } from "../types/organizationTypes";
+import type { 
+    CreateOrganizationPayload,
+    AddOrgMemberPayload, 
+    GetOrganizationResponse,
+    GetOrganizationsResponse, 
+    GetOrganizationMemberResponse
+ } from "../types/organizationTypes";
 
 
 // Fetch all organization owned by authenticated user
-export const getOrganizations = async(): Promise<GetOrganizationResponse> => {
+export const getOrganizations = async(): Promise<GetOrganizationsResponse> => {
     const response = await fetch(`${BASE_URL}/organization`, {
         method: "GET",
         headers: {
@@ -40,7 +46,7 @@ export const createOrganization = async({name, slug} : CreateOrganizationPayload
     return await response.json();
 }
 
-export const getOrganization = async(slug: string) => {
+export const getOrganization = async(slug: string): Promise<GetOrganizationResponse> => {
     const response = await fetch(`${BASE_URL}/organization/${slug}`, {
         method: "GET",
         headers: {
@@ -95,7 +101,7 @@ export const deleteOrganization = async(slug: string) => {
     return await response.json();
 }
 
-export const getOrganizationMembers = async(slug: string) => {
+export const getOrganizationMembers = async(slug: string): Promise<GetOrganizationMemberResponse> => {
     const response = await fetch(`${BASE_URL}/organization/${slug}/members`, {
         method: "GET",
         headers: {
@@ -107,6 +113,26 @@ export const getOrganizationMembers = async(slug: string) => {
 
     if(!response.ok){
         throw new Error("Failed to get organization member")
+    }
+
+    return await response.json();
+}
+export const addOrgMember = async({slug, email, role}: AddOrgMemberPayload) => {
+    const response = await fetch(`${BASE_URL}/organization/${slug}/members`, {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json",
+            "Accept": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify({
+            email,
+            role
+        })
+    })
+
+    if(!response.ok){
+        throw new Error("Failed to add member to organization");
     }
 
     return await response.json();

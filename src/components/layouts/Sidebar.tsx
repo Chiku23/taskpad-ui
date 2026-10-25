@@ -9,10 +9,8 @@ import { IoMdAdd } from "react-icons/io";
 import { FaAngleDown } from "react-icons/fa6";
 import { useState } from "react";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
-import { MdOutlineFolderOpen } from "react-icons/md";
-import { PROJECTS } from "../../seed/project.ts";
 import { useOrganizations } from "../../features/organization/hooks/useOrganizations.ts";
-
+import { OrgProjectsList } from "./OrgProjectList.tsx";
 interface SidebarProps {
   isOpen: boolean;
 }
@@ -67,7 +65,7 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
 
   //dropdown for subitems of nav default items
   //i.e "projects" inside "organization"
-  const toggleSubDropdown = (e: React.MouseEvent, id: string) => {
+  const toggleSubDropdown = (e: React.MouseEvent, id: number) => {
     e.preventDefault();
     setOpenSubDropdown((prev) => ({ ...prev, [id]: !prev[id] }));
   };
@@ -138,7 +136,10 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                   {AddIcon && (
                     <button
                       type="button"
-                      onClick={() => openModal("create_organization")}
+                      onClick={() => openModal({
+                        activeModal: "create_organization",
+                        modalData: null
+                      })}
                       className="cursor-pointer hover:bg-app-item-hover rounded p-0.5 transition-colors"
                     >
                       <AddIcon className="size-4 text-text-ghost hover:text-text-muted" />
@@ -158,10 +159,6 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                       `/organization/${org.slug}`,
                     );
                     const isSubOpen = !!openSubDropdown[org.id];
-                    const filteredProjects = PROJECTS.filter(
-                      (p) => p.organizationId === org.id,
-                    );
-                    console.log(filteredProjects)
                     return (
                       <div key={org.id} className="flex flex-col w-full">
                         <div
@@ -190,35 +187,7 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                         </div>
 
                         {isSubOpen && (
-                          <div className="flex flex-col pl-6 mt-1 gap-1">
-                            {filteredProjects.map((project) => {
-                              const isProjectActive =
-                                location.pathname.startsWith(
-                                  `/projects/${project.id}`,
-                                );
-                              return (
-                                <Link
-                                  key={project.id}
-                                  to={`/projects/${project.id}`}
-                                  className={`p-1 flex items-center gap-2 rounded text-xs ${
-                                    isProjectActive
-                                      ? "text-blue-500 font-bold"
-                                      : "text-text-muted hover:text-text-main"
-                                  }`}
-                                >
-                                  <MdOutlineFolderOpen className="size-3.5 text-text-ghost shrink-0" />
-                                  <span className="truncate flex-1">
-                                    {project.name}
-                                  </span>
-                                </Link>
-                              );
-                            })}
-                            {filteredProjects.length === 0 && (
-                              <span className="text-[11px] text-text-ghost pl-2 italic">
-                                No projects
-                              </span>
-                            )}
-                          </div>
+                          <OrgProjectsList orgSlug={org.slug}/>
                         )}
                       </div>
                     );
@@ -231,7 +200,10 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                       {AddIcon && (
                         <button
                           type="button"
-                          onClick={() => openModal("create_organization")}
+                          onClick={() => openModal({
+                            activeModal: "create_organization",
+                            modalData: null
+                          })}
                           className="text-xs text-blue-500 hover:underline cursor-pointer flex items-center gap-1 mt-0.5"
                         >
                           <AddIcon className="size-3" />

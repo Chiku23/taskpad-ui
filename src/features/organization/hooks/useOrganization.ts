@@ -7,7 +7,7 @@ export const useOrganization = (slug: string) => {
         queryFn: () => getOrganization(slug)
     });
 
-    return(
+    return{
         organization
-    )
+    }
 }

@@ -1,10 +1,10 @@
 import { useParams, Link, Outlet, useLocation } from "react-router-dom";
-import { PROJECTS } from "../../../seed/project";
 import { IoIosMore } from "react-icons/io";
 import { CgGlobeAlt } from "react-icons/cg";
 import { LiaThListSolid } from "react-icons/lia";
 import { HiOutlineViewBoards } from "react-icons/hi";
 import { RiTeamFill } from "react-icons/ri";
+import { useGetProject } from "../hooks/useGetProject";
 
 const NAV_ITEMS = [
   {id: "1", name: "Summary", path: "summary", icon: CgGlobeAlt},
@@ -14,8 +14,9 @@ const NAV_ITEMS = [
 
 export const ProjectLayout = () => {
   const location = useLocation();
-  const { projectId } = useParams<{ projectId: string }>();
-  const project = PROJECTS.find((p) => String(p.id) === projectId);
+  const { projectSlug } = useParams<{ projectSlug: string }>();
+  const { projectData } = useGetProject(projectSlug || "");
+  const project = projectData?.data?.project;
 
   return (
     <div className="flex flex-col bg-app-canvas min-h-screen">
