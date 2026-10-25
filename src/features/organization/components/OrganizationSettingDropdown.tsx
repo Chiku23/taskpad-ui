@@ -1,25 +1,30 @@
 import { Dropdown } from "../../../components/ui/Dropdown";
-import { IoPersonOutline, IoSettingsOutline, IoTrash, IoEllipsisHorizontal } from "react-icons/io5";
+import {
+  IoPersonOutline,
+  IoSettingsOutline,
+  IoTrash,
+  IoEllipsisHorizontal,
+} from "react-icons/io5";
 import { useModalStore } from "../../../stores/useModalStore";
 import { useOrganization } from "../hooks/useOrganization";
 import { useParams } from "react-router-dom";
 
 export const OrganizationSettingDropdown = () => {
-  const {orgSlug} = useParams();
-  const {openModal} = useModalStore();
+  const { orgSlug } = useParams();
+  const { openModal } = useModalStore();
 
-  const {organization} = useOrganization(orgSlug ?? "")
+  const { organization } = useOrganization(orgSlug ?? "");
 
   const currentOrg = organization?.data?.organization;
 
   const handleAddMember = () => {
-    if(currentOrg){
+    if (currentOrg) {
       openModal({
         activeModal: "add_org_member",
-        modalData: currentOrg
-      })
+        modalData: currentOrg,
+      });
     }
-  }
+  };
   return (
     <Dropdown
       id="org-setting" // Unique ID registered in Zustand
@@ -30,19 +35,22 @@ export const OrganizationSettingDropdown = () => {
       }
     >
       <ul className="flex flex-col gap-0.5">
-        <li 
-        onClick={handleAddMember}
-        className="flex items-center gap-2 px-4 py-2 hover:bg-app-border cursor-pointer">
-            <IoPersonOutline className="size-4"/>
-            <span>Add Member</span>
+        <li>
+          <button
+            onClick={handleAddMember}
+            className="w-full flex items-center gap-2 px-4 py-2 hover:bg-app-border cursor-pointer"
+          >
+            <IoPersonOutline className="size-4" />
+            Add Member
+          </button>
         </li>
         <li className="flex items-center gap-2 px-4 py-2 hover:bg-app-border cursor-pointer">
-            <IoSettingsOutline className="size-4"/>
-            <span>Edit details</span>
+          <IoSettingsOutline className="size-4" />
+          <span>Edit details</span>
         </li>
         <li className="flex items-center gap-2 px-4 py-2 hover:bg-app-border cursor-pointer text-priority-highest">
-            <IoTrash className="size-4"/>
-            <span>Delete organization</span>
+          <IoTrash className="size-4" />
+          <span>Delete organization</span>
         </li>
       </ul>
     </Dropdown>

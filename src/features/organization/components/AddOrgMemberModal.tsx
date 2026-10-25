@@ -16,8 +16,7 @@ export const AddOrgMemberModal = ({onSuccess}: AddOrgMemberProps) => {
   const {mutateAddOrgMember} = useAddOrgMember();
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
-    mutateAddOrgMember({slug: orgSlug || "", email, role});
-    onSuccess()
+    mutateAddOrgMember({slug: orgSlug || "", email, role}, {onSuccess});
   }
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -34,7 +33,7 @@ export const AddOrgMemberModal = ({onSuccess}: AddOrgMemberProps) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="text-text-main text-sm border border-app-border bg-app-input-bg px-4 py-2 rounded-lg font-semibold w-full outline-none"
-          type="text"
+          type="email"
           placeholder="e.g. example@gmail.com"
           required
         />

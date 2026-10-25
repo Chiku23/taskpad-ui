@@ -17,7 +17,6 @@ export const ProjectLayout = () => {
   const { projectSlug } = useParams<{ projectSlug: string }>();
   const { projectData } = useGetProject(projectSlug || "");
   const project = projectData?.data?.project;
-  console.log(projectData)
 
   return (
     <div className="flex flex-col bg-app-canvas min-h-screen">

@@ -23,8 +23,7 @@ export const CreateProjectModal = ({ onSuccess }: CreateProjectModalProps) => {
         ...projectFormData,
         lead: null,
       },
-    });
-    onSuccess();
+    }, {onSuccess});
   };
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -91,7 +90,7 @@ export const CreateProjectModal = ({ onSuccess }: CreateProjectModalProps) => {
           <input
             id="project-key"
             value={projectFormData.key.toUpperCase()}
-            onChange={(e) => setProjectFormData({...projectFormData, key: e.target.value})}
+            onChange={(e) => setProjectFormData({...projectFormData, key: e.target.value.toUpperCase()})}
             className="text-text-main text-sm border border-app-border bg-app-input-bg px-4 py-2 rounded-lg w-full outline-none"
             type="text"
             placeholder="e.g WAPP"
