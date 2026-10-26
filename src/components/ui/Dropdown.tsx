@@ -38,6 +38,7 @@ export const Dropdown = ({ id, trigger, children, dropdownClassName, triggerClas
     <div className="relative" ref={dropdownRef}>
       {/* Fires layout state update in Zustand store */}
       <button 
+      id={String(id)}
       type="button"
       onClick={(e) => {
         toggleDropdown(id);

@@ -6,7 +6,6 @@ import { CreateProjectModal } from "../../features/organization/components/Creat
 import { CreateTaskModal } from "../../features/dashboard/components/CreateTaskModal";
 import { AddOrgMemberModal } from "../../features/organization/components/AddOrgMemberModal";
 import type { Organization } from "../../features/organization/types/organizationTypes";
-import type { Project } from "../../features/projects/types/projectTypes";
 
 export const ModalRegistry = () => {
     const {activeModal, modalData, closeModal} = useModalStore();
@@ -17,7 +16,12 @@ export const ModalRegistry = () => {
             case "create_organization":
                 return <CreateOrganizationModal onSuccess={closeModal}/>
             case "create_task":
-                return <CreateTaskModal onSuccess={closeModal} projectData={modalData as Project[]}/>
+                return (
+                <CreateTaskModal 
+                onSuccess={closeModal} 
+                projectData={modalData.projects}
+                isLoading={modalData.isLoading}
+                 />)
             case "create_project":
                 return <CreateProjectModal onSuccess={closeModal}/>
             case "add_org_member":

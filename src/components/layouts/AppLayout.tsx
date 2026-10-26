@@ -24,9 +24,8 @@ export const AppLayout = () => {
         {/* Only outlet contents are allowed to scroll */}
         <main className="flex-1 overflow-y-auto z-10 bg-app-canvas">
           <Outlet />
-          <ModalRegistry />
         </main>
-
+          <ModalRegistry />
       </div>
     </div>
   );

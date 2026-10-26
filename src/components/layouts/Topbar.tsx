@@ -58,9 +58,7 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
           <IoSettingsOutline className="size-5" />
         </button>
         {/* profile*/}
-        <button>
           <ProfileDropdown />
-        </button>
       </div>
     </div>
   );
