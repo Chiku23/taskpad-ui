@@ -16,7 +16,12 @@ export const ModalRegistry = () => {
             case "create_organization":
                 return <CreateOrganizationModal onSuccess={closeModal}/>
             case "create_task":
-                return <CreateTaskModal onSuccess={closeModal}/>
+                return (
+                <CreateTaskModal 
+                onSuccess={closeModal} 
+                projectData={modalData.projects}
+                isLoading={modalData.isLoading}
+                 />)
             case "create_project":
                 return <CreateProjectModal onSuccess={closeModal}/>
             case "add_org_member":
@@ -31,7 +36,7 @@ export const ModalRegistry = () => {
             case "create_organization":
                 return modalData ? "Edit Organization Details" : "Create New Organization";
             case "create_task":
-                return modalData ? "Edit Task Details" : "Create New Task";
+                return "Create New Task";
             case "create_project":
                 return modalData ? "Edit Project Details" : "Add New Project";
             case "add_org_member": {
