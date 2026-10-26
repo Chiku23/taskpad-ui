@@ -1,10 +1,11 @@
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
-import { FaRegUserCircle } from "react-icons/fa";
 
 import { CreateTaskButton } from "../../features/dashboard/components/CreateTaskButton";
 import { SearchBar } from "../ui/SearchBar";
+import { useParams } from "react-router-dom";
+import { ProfileDropdown } from "./ProfilleDropdown";
 
 interface TopbarProps {
   onToggleSidebar: () => void;
@@ -12,8 +13,9 @@ interface TopbarProps {
 }
 
 export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
+  const {orgSlug} = useParams<{orgSlug: string}>();
   return (
-    <div className="p-3 sticky top-0 w-full bg-app-topbar grid grid-cols-3 items-center border-y border-app-border">
+    <div className="px-1 py-2 w-full bg-app-topbar grid grid-cols-3 items-center border-y border-app-border">
       {/*Sidebar toggle & Logo */}
       <div className="flex items-center gap-4 text-text-muted">
         <button
@@ -42,7 +44,7 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
         <SearchBar
           className="text-sm bg-app-input-bg"
           placeholder="Type here...."/>
-        <CreateTaskButton />
+        <CreateTaskButton slug={orgSlug || ""}/>
       </div>
 
       {/*User related */}
@@ -56,8 +58,8 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
           <IoSettingsOutline className="size-5" />
         </button>
         {/* profile*/}
-        <button className="hover:opacity-80 transition-opacity cursor-pointer">
-          <FaRegUserCircle className="size-5"/>
+        <button>
+          <ProfileDropdown />
         </button>
       </div>
     </div>

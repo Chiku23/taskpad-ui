@@ -19,7 +19,7 @@ export const ModalShell = ({ title, onClose, children }: ModalShellProps) => {
 
   return (
     <div 
-      className="fixed inset-0 flex items-center justify-center p-4 backdrop-blur"
+      className="fixed inset-0 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xss"
       onClick={onClose} // Clicks on backdrop close the modal
     >
       <div 

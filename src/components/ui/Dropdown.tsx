@@ -2,11 +2,13 @@ import { useDropdownStore } from "../../stores/useDropdownStore";
 import React, { useEffect, useRef } from "react";
 
 interface DropdownProps {
-  id: string;
+  id: number | string;
   trigger: React.ReactNode;
   children: React.ReactNode;
+  dropdownClassName: string;
+  triggerClassName: string;
 }
-export const Dropdown = ({ id, trigger, children }: DropdownProps) => {
+export const Dropdown = ({ id, trigger, children, dropdownClassName, triggerClassName }: DropdownProps) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const acticeDropdownId = useDropdownStore((state) => state.activeDropdownId);
@@ -33,7 +35,7 @@ export const Dropdown = ({ id, trigger, children }: DropdownProps) => {
   }, [isOpen, closeDropdown]);
 
   return (
-    <div className="relative inline-block" ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef}>
       {/* Fires layout state update in Zustand store */}
       <button 
       type="button"
@@ -43,13 +45,13 @@ export const Dropdown = ({ id, trigger, children }: DropdownProps) => {
           e.currentTarget.blur();
         }
       }} 
-      className="cursor-pointer focus:ring rounded-md">
+      className={`${triggerClassName}`}>
         {trigger}
       </button>
 
       {isOpen && (
         <div
-          className="absolute left-0 mt-1 w-64 border border-app-border bg-app-sidebar rounded-md shadow-lg py-2 text-sm text-text-muted"
+          className={`absolute ${dropdownClassName}`}
           onClick={closeDropdown} // Closes state globally when any interior selection is clicked
         >
           {children}

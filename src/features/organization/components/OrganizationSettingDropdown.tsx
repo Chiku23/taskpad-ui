@@ -29,10 +29,12 @@ export const OrganizationSettingDropdown = () => {
     <Dropdown
       id="org-setting" // Unique ID registered in Zustand
       trigger={
-        <div className="flex items-center border border-transparent hover:border-app-border hover:rounded-md p-0.5">
+        <div className="flex items-center border border-transparent hover:border-app-border hover:rounded-md p-0.5 cursor-pointer">
           <IoEllipsisHorizontal className="size-5" />
         </div>
       }
+      dropdownClassName="w-64 bg-app-input-bg border border-app-border rounded-md text-sm"
+      triggerClassName="w-full"
     >
       <ul className="flex flex-col gap-0.5">
         <li>

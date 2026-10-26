@@ -1,16 +1,22 @@
 import { Button } from "../../../components/ui/Button";
 import { IoIosAdd } from "react-icons/io";
 import { useModalStore } from "../../../stores/useModalStore";
+import { useGetProjects } from "../../projects/hooks/useGetProjects";
 
+interface CreateTaskButtonProps {
+    slug: string
+}
 
-export const CreateTaskButton = () => {
+export const CreateTaskButton = ({slug}: CreateTaskButtonProps) => {
     const {openModal} = useModalStore();
+    const {projectsData} = useGetProjects(slug);
+    const projects = projectsData?.data?.projects;
     return(
         <Button 
         type="button" 
         onClick={() => openModal({
             activeModal: "create_task",
-            modalData: null
+            modalData: projects
         })}
         className="flex items-center justify-center cursor-pointer h-full px-2 text-sm text-black rounded-md font-public-sans font-light bg-app-button">
             New Task

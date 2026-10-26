@@ -1,10 +1,10 @@
 import {create} from "zustand";
 
 interface DropdownState {
-    activeDropdownId: string | null;
-    openDropdown: (id: string) => void;
+    activeDropdownId: number | string | null;
+    openDropdown: (id: string | number) => void;
     closeDropdown: () => void;
-    toggleDropdown: (id: string) => void;
+    toggleDropdown: (id: string | number) => void;
 }
 
 export const useDropdownStore = create<DropdownState>((set) => ({

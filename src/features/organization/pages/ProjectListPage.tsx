@@ -1,9 +1,9 @@
-import { IoIosMore } from "react-icons/io";
 import { useModalStore } from "../../../stores/useModalStore";
 import { Link, useParams } from "react-router-dom";
 import { useGetProjects } from "../../projects/hooks/useGetProjects.ts";
 import type { Project, RouteParams } from "../../projects/types/projectTypes.ts";
 import { formatDate } from "../../../utils/formatDate.ts";
+import { ProjectSettingDropdown } from "../components/ProjectSettingDropdown.tsx";
 
 export const ProjectListPage = () => {
   const { openModal } = useModalStore();
@@ -72,9 +72,7 @@ export const ProjectListPage = () => {
 
                   {/* Settings Icon */}
                   <td className="px-4 py-3 whitespace-nowrap align-middle text-right">
-                    <button className="inline-flex items-center justify-center p-1 rounded-md hover:bg-app-card cursor-pointer transition-colors text-text-muted">
-                      <IoIosMore className="size-5" />
-                    </button>
+                    <ProjectSettingDropdown id={project.id}/>
                   </td>
                 </tr>
               ))}
