@@ -1,6 +1,8 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useCreateOrganization } from "../hooks/useCreateOrganization";
-import { useState } from "react"; 
 import { generateSlug } from "../../../utils/generateSlug";
+import { useOrgStore } from "../../../stores/useOrgStore";
 
 interface CreateOrganizationModalProps {
   onSuccess: () => void;
@@ -9,13 +11,29 @@ interface CreateOrganizationModalProps {
 export const CreateOrganizationModal = ({ onSuccess }: CreateOrganizationModalProps) => {
   const [orgName, setOrgName] = useState("");
   const orgSlugName = generateSlug(orgName);
+  const navigate = useNavigate();
 
-  const {mutateCreateOrganization, isPending} = useCreateOrganization();
+  const { mutateCreateOrganization, isPending } = useCreateOrganization();
 
-  const handleSubmit = (e: React.SubmitEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    mutateCreateOrganization({name: orgName, slug: orgSlugName}, {onSuccess});
+    mutateCreateOrganization(
+      { name: orgName, slug: orgSlugName },
+      {
+        onSuccess: (response: any) => {
+          onSuccess();
+          const createdOrg = response?.data?.organization;
+          if (createdOrg) {
+            useOrgStore.getState().setActiveOrg(createdOrg);
+            localStorage.setItem("active_org_slug", createdOrg.slug);
+          } else {
+            localStorage.setItem("active_org_slug", orgSlugName);
+          }
+          navigate(`/${orgSlugName}/dashboard`, { replace: true });
+        },
+      }
+    );
   };
 
   return (
@@ -38,9 +56,9 @@ export const CreateOrganizationModal = ({ onSuccess }: CreateOrganizationModalPr
       <button 
         type="submit"
         disabled={isPending} 
-        className="mt-6 w-full bg-app-button hover:bg-app-button-hover text-black font-semibold rounded-lg px-4 py-2 text-sm cursor-pointer"
+        className="mt-6 w-full bg-app-button hover:bg-app-button-hover text-black font-semibold rounded-lg px-4 py-2 text-sm cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
       >
-        Create Organization
+        {isPending ? "Creating…" : "Create Organization"}
       </button>
     </form>
   );

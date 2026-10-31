@@ -1,31 +1,49 @@
 export interface Project {
-    id: number;
-    name: string;
-    key: string;
-    slug: string;
-    description: string;
-    type: string;
-    is_archived: number;
-    organization_id: number;
-    lead_id: number;
-    created_at: string;
-    updated_at: string;
+  id: number;
+  name: string;
+  key: string;
+  slug: string;
+  description?: string;
+  type?: string;
+  is_archived?: number | boolean;
+  organization_id: number | string;
+  lead_id: number | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export type RouteParams = {
-    orgSlug: string;
-}
+  orgSlug: string;
+};
+
+export type GetProjectsResponse = {
+  status: string;
+  message: string;
+  data: {
+    projects: Project[];
+  };
+};
 
 export type CreateProjectPayload = {
-    name: string;
-    description: string;
-    key: string;
-    lead: number | null;
-}
+  orgSlug: string;
+  slug: string;
+  name: string;
+  key: string;
+  description?: string;
+  lead: number | null;
+};
 
-type ProjectRole = "member" | "leader"
+export type UpdateProjectPayload = {
+  projectSlug: string;
+  name?: string;
+  key?: string;
+  description?: string;
+  lead?: number | null;
+};
+
+export type ProjectRole = "owner" | "admin" | "member" | "leader";
 
 export type AddMemberPayload = {
-    user_id: number,
-    role: ProjectRole
-}
+  user_id: number;
+  role: ProjectRole;
+};

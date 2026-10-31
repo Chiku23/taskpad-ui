@@ -1,16 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createProject } from "../api/projectsApi";
+import { createProject } from "../api/projectApi";
 
-export const useCreateProject = () => {
-    const queryClient = useQueryClient();
-    const {mutate: mutateCreateProject} = useMutation({
-        mutationFn: createProject,
-        onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: ["projects"]})
-        }
-    });
+export const useCreateProject = (orgSlug?: string) => {
+  const queryClient = useQueryClient();
 
-    return {
-        mutateCreateProject
-    }
-}
+  const { mutate: mutateCreateProject, isPending } = useMutation({
+    mutationFn: createProject,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      if (orgSlug) {
+        queryClient.invalidateQueries({ queryKey: ["projects", orgSlug] });
+      }
+    },
+  });
+
+  return { mutateCreateProject, isPending };
+};

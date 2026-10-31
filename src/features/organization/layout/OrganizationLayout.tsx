@@ -1,11 +1,13 @@
 import { Link, useLocation, Outlet, useParams } from "react-router-dom";
 import { VscProject } from "react-icons/vsc";
 import { GoOrganization } from "react-icons/go";
+import { IoSettingsOutline } from "react-icons/io5";
 import { useOrganizations } from "../hooks/useOrganizations";
 import { OrganizationSettingDropdown } from "../components/OrganizationSettingDropdown";
 
 const NAV_ITEMS = [
   { id: 1, name: "Projects", path: "project", icon: VscProject },
+  { id: 2, name: "Settings & Members", path: "settings", icon: IoSettingsOutline },
 ];
 
 export const OrganizationLayout = () => {
@@ -21,8 +23,8 @@ export const OrganizationLayout = () => {
       <div className="sticky top-0 flex flex-col gap-2 border-b border-app-border bg-app-canvas pt-5 px-10">
         {/* header */}
         <div className="flex items-center text-text-muted gap-4">
-          <div className="flex gap-2">
-            <GoOrganization className="w-8 h-8" />
+          <div className="flex gap-2 items-center">
+            <GoOrganization className="w-7 h-7" />
             <h1 className="text-2xl font-semibold capitalize">
               {currentOrg?.name}
             </h1>
@@ -41,12 +43,14 @@ export const OrganizationLayout = () => {
                 <li key={item.id}>
                   <Link
                     to={item.path}
-                    className={`flex items-center gap-1 px-1 pb-1 ${
-                      isActive ? "border-b-2 border-text-muted" : ""
+                    className={`flex items-center gap-1.5 px-1 pb-2 transition-colors ${
+                      isActive
+                        ? "border-b-2 border-app-button text-text-main font-semibold"
+                        : "hover:text-text-muted"
                     }`}
                   >
-                    <Icon className="size-5" />
-                    <span className="font-bold">{item.name}</span>
+                    <Icon className="size-4" />
+                    <span>{item.name}</span>
                   </Link>
                 </li>
               );
