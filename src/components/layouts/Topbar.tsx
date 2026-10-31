@@ -144,7 +144,16 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
         <button className="hover:opacity-80 transition-opacity cursor-pointer">
           <IoIosNotificationsOutline className="size-6" />
         </button>
-        <button className="hover:opacity-80 transition-opacity cursor-pointer">
+        <button
+          onClick={() => {
+            if (currentOrgSlug) {
+              navigate(`/${currentOrgSlug}/organization/settings`);
+            }
+          }}
+          title="Organization Settings"
+          aria-label="Organization Settings"
+          className="hover:opacity-80 transition-opacity cursor-pointer"
+        >
           <IoSettingsOutline className="size-5" />
         </button>
         {/* Profile Dropdown */}

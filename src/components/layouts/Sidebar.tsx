@@ -7,6 +7,8 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
+import { IoSettingsOutline } from "react-icons/io5";
+
 import { useOrgProjects } from "../../features/projects/hooks/useOrgProjects";
 import { useModalStore } from "../../stores/useModalStore";
 import type { Project } from "../../features/projects/types/projectTypes";
@@ -34,6 +36,12 @@ const NAV_ITEMS = [
     path: "issues",
     icon: VscIssues,
     issueCount: 5,
+  },
+  {
+    id: "4",
+    name: "Settings",
+    path: "organization/settings",
+    icon: IoSettingsOutline,
   },
 ];
 

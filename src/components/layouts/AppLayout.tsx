@@ -37,13 +37,16 @@ export const AppLayout = () => {
     const matchedOrg = orgs.find((o) => o.slug === orgSlug);
 
     if (!matchedOrg) {
-      // Slug is invalid or missing — fall back to the first org
-      navigate(`/${orgs[0].slug}/dashboard`, { replace: true });
+      // Slug is invalid or missing — fall back to the saved org or first org
+      const savedSlug = localStorage.getItem("active_org_slug");
+      const fallbackOrg = orgs.find((o) => o.slug === savedSlug) ?? orgs[0];
+      navigate(`/${fallbackOrg.slug}/dashboard`, { replace: true });
       return;
     }
 
-    // Set the matched org as active in the global store
+    // Set the matched org as active in the global store & persist
     setActiveOrg(matchedOrg);
+    localStorage.setItem("active_org_slug", matchedOrg.slug);
   }, [isLoading, organizationsData, orgSlug, navigate, setActiveOrg]);
 
   return (

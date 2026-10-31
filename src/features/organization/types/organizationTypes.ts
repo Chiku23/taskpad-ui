@@ -14,6 +14,8 @@ export type OrganizationMember = {
     id: number;
     organization_id: number;
     user_id: number;
+    user_name?: string;
+    user_email?: string;
     role: OrgRole;
     joined_at: string | null;
     created_at: string;

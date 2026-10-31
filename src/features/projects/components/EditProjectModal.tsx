@@ -20,8 +20,8 @@ export const EditProjectModal = ({ onSuccess }: EditProjectModalProps) => {
   );
 
   const { mutateUpdateProject, isPending } = useUpdateProject(orgSlug);
-  const { organizationsData: membersData } = useGetOrganizationMembers(orgSlug);
-  const members = (membersData as { data?: { members?: { user_id: number; user_name: string }[] } })?.data?.members ?? [];
+  const { organizationMembersData } = useGetOrganizationMembers(orgSlug);
+  const members = organizationMembersData?.data?.members ?? [];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

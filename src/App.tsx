@@ -12,6 +12,7 @@ import { SummaryPage } from "./features/projects/pages/SummaryPage";
 import { TaskListPage } from "./features/projects/pages/TaskListPage";
 import { TaskBoardPage } from "./features/projects/pages/TaskBoardPage";
 import { ProjectListPage } from "./features/organization/pages/ProjectListPage";
+import { OrganizationSettingsPage } from "./features/organization/pages/OrganizationSettingsPage";
 import { ProtectedRoute } from "./components/ui/ProtectedRoute";
 import { OrgRedirect } from "./components/OrgRedirect";
 
@@ -58,6 +59,7 @@ function App() {
               <Route path="organization" element={<OrganizationLayout />}>
                 <Route index element={<Navigate to="project" replace />} />
                 <Route path="project" element={<ProjectListPage />} />
+                <Route path="settings" element={<OrganizationSettingsPage />} />
               </Route>
             </Route>
           </Route>

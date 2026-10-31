@@ -16,9 +16,8 @@ export const CreateProjectModal = ({ onSuccess }: CreateProjectModalProps) => {
   const [lead, setLead] = useState<number | null>(null);
 
   const { mutateCreateProject, isPending } = useCreateProject(orgSlug);
-  const { organizationsData: membersData } = useGetOrganizationMembers(orgSlug);
-  const members =
-    (membersData as { data?: { members?: { user_id: number; user_name: string }[] } })?.data?.members ?? [];
+  const { organizationMembersData } = useGetOrganizationMembers(orgSlug);
+  const members = organizationMembersData?.data?.members ?? [];
 
   // Auto-generate key from name (uppercase, max 6 chars, letters only)
   const handleNameChange = (val: string) => {
