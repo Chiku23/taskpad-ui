@@ -1,5 +1,5 @@
 export interface Project {
-  id: number | string;
+  id: number;
   name: string;
   key: string;
   slug: string;
@@ -7,9 +7,9 @@ export interface Project {
   type?: string;
   is_archived?: number | boolean;
   organization_id: number | string;
-  lead_id?: number | string | null;
-  created_at?: string;
-  updated_at?: string;
+  lead_id: number | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export type RouteParams = {
@@ -25,12 +25,12 @@ export type GetProjectsResponse = {
 };
 
 export type CreateProjectPayload = {
-  orgSlug?: string;
-  slug?: string;
+  orgSlug: string;
+  slug: string;
   name: string;
   key: string;
   description?: string;
-  lead?: number | null;
+  lead: number | null;
 };
 
 export type UpdateProjectPayload = {

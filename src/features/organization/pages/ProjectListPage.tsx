@@ -51,7 +51,7 @@ export const ProjectListPage = () => {
                         {project.key.toUpperCase()}
                       </span>
                       <Link
-                        to={`/projects/${project.slug}`}
+                        to={`/${orgSlug}/projects/${project.slug}`}
                         className="font-medium text-text-main hover:underline decoration-2"
                       >
                         {project.name}

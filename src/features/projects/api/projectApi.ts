@@ -27,6 +27,9 @@ export const getOrganizationProjects = async (
 // POST /organization/:orgSlug/projects
 export const createProject = async ({ orgSlug, slug, name, key, description, lead }: CreateProjectPayload) => {
   const targetSlug = orgSlug || slug;
+  if(!targetSlug){
+    throw new Error("Organization slug missing");
+  }
   const response = await fetch(`${BASE_URL}/organization/${targetSlug}/projects`, {
     method: "POST",
     headers: {

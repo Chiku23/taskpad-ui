@@ -62,7 +62,8 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
     });
   };
 
-  const { projects, isLoading: projectsLoading } = useOrgProjects(orgSlug);
+  const { projectsData, isLoading: projectsLoading } = useOrgProjects(orgSlug || "");
+  const projects = projectsData?.data?.projects || [];
 
   const openCreateProject = () => {
     useModalStore.getState().openModal("create_project");
@@ -124,7 +125,7 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
       </nav>
 
       {/* ── Projects section ── */}
-      <div className="mt-4 flex flex-col gap-1">
+      <div className="mt-4 flex flex-col gap-1 flex-1 min-h-0 overflow-y-auto">
         {/* Section header with expand/collapse toggle and + button */}
         <div className="flex items-center justify-between px-1 mb-1">
           <button

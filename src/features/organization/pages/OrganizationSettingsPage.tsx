@@ -75,8 +75,8 @@ export const OrganizationSettingsPage = () => {
         onSuccess: () => {
           setActionSuccess("Member removed successfully.");
         },
-        onError: (err: any) => {
-          setActionError(err?.message || "Failed to remove member.");
+        onError: (err: Error) => {
+          setActionError(err.message || "Failed to remove member.");
         },
       }
     );
@@ -91,8 +91,8 @@ export const OrganizationSettingsPage = () => {
         onSuccess: () => {
           setActionSuccess("Member role updated.");
         },
-        onError: (err: any) => {
-          setActionError(err?.message || "Failed to update member role.");
+        onError: (err: Error) => {
+          setActionError(err.message || "Failed to update member role.");
         },
       }
     );
@@ -111,8 +111,8 @@ export const OrganizationSettingsPage = () => {
           setEditingName(false);
           setActionSuccess("Organization updated successfully.");
         },
-        onError: (err: any) => {
-          setActionError(err?.message || "Failed to update organization.");
+        onError: (err: Error) => {
+          setActionError(err.message || "Failed to update organization.");
         },
       }
     );

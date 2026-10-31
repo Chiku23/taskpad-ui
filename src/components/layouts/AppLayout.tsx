@@ -3,7 +3,6 @@ import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
 import { useEffect, useState } from "react";
 import { ModalRegistry } from "../modals/ModalRegistry";
-import { useModalStore } from "../../stores/useModalStore";
 import { useOrganizations } from "../../features/organization/hooks/useOrganizations";
 import { useOrgStore } from "../../stores/useOrgStore";
 
@@ -13,7 +12,7 @@ export const AppLayout = () => {
   const { orgSlug } = useParams<{ orgSlug: string }>();
   const navigate = useNavigate();
 
-  const { organizationsData, isLoading } = useOrganizations();
+  const { organizationsData, isLoading, isError } = useOrganizations();
   const { setActiveOrg } = useOrgStore();
 
   const toggleSidebar = () => {
@@ -23,13 +22,13 @@ export const AppLayout = () => {
   // When Page loads, check if an organization exist, If yes set that organization or the first organization as active
   // If no organization exist prompt the user to create an organization
   useEffect(() => {
-    if (isLoading) return;
+    if (isLoading || isError) return;
 
     const orgs = organizationsData?.data.organizations ?? [];
 
     if (orgs.length === 0) {
-      // No organizations found — prompt user to create one
-      useModalStore.getState().openModal("create_organization");
+      // No organizations found — send user to organization onbording page
+      navigate("/")
       return;
     }
 
@@ -47,7 +46,7 @@ export const AppLayout = () => {
     // Set the matched org as active in the global store & persist
     setActiveOrg(matchedOrg);
     localStorage.setItem("active_org_slug", matchedOrg.slug);
-  }, [isLoading, organizationsData, orgSlug, navigate, setActiveOrg]);
+  }, [isLoading, isError, organizationsData, orgSlug, navigate, setActiveOrg]);
 
   return (
     //no full window scrolling

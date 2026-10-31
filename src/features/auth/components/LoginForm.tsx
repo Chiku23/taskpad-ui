@@ -37,6 +37,7 @@ export const LoginForm = () => {
         setLoading(false);
       } else {
         queryClient.clear();
+        useOrgStore.getState().clearActiveOrg();
         queryClient.setQueryData(["authUser"], response);
 
         try {
