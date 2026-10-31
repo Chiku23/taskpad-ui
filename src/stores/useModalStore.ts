@@ -1,6 +1,6 @@
 import {create} from "zustand";
 
-type ModalType = "create_project" | "create_task" | "create_organization";
+type ModalType = "create_project" | "edit_project" | "create_task" | "create_organization";
 interface ModalState{
     activeModal: ModalType | null;
     modalData: unknown; //stores project data

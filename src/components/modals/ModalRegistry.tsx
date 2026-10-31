@@ -3,6 +3,7 @@ import { ModalShell } from "./ModalShell";
 
 import { CreateOrganizationModal } from "../../features/organization/components/CreateOrganizationModal";
 import { CreateProjectModal } from "../../features/organization/components/CreateProjectModal";
+import { EditProjectModal } from "../../features/projects/components/EditProjectModal";
 import { CreateTaskModal } from "../../features/dashboard/components/CreateTaskModal";
 
 export const ModalRegistry = () => {
@@ -18,6 +19,8 @@ export const ModalRegistry = () => {
                 return <CreateTaskModal onSuccess={closeModal}/>
             case "create_project":
                 return <CreateProjectModal onSuccess={closeModal}/>
+            case "edit_project":
+                return <EditProjectModal onSuccess={closeModal}/>
             default:
                 return null;
         }
@@ -30,7 +33,9 @@ export const ModalRegistry = () => {
             case "create_task":
                 return modalData ? "Edit Task Details" : "Create New Task";
             case "create_project":
-                return modalData ? "Edit Project Details" : "Add New Project";
+                return "Add New Project";
+            case "edit_project":
+                return "Edit Project Details";
             default:
                 return "";
         }

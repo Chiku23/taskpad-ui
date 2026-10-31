@@ -13,6 +13,7 @@ import { TaskListPage } from "./features/projects/pages/TaskListPage";
 import { TaskBoardPage } from "./features/projects/pages/TaskBoardPage";
 import { ProjectListPage } from "./features/organization/pages/ProjectListPage";
 import { ProtectedRoute } from "./components/ui/ProtectedRoute";
+import { OrgRedirect } from "./components/OrgRedirect";
 
 /**
  * Renders the login and registration routes within the browser router.
@@ -25,29 +26,37 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          <Route path="*" element={<Navigate to="/login" replace />} />
-          <Route path="/login" element={<LoginPage />}></Route>
+          {/* Catch-all: anything unknown goes to the org resolver */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+
+          {/* Auth routes — no org slug needed */}
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
 
-          <Route path="/" element={<AppLayout />}>
-            <Route element={<ProtectedRoute />}>
-              <Route index element={<Navigate to="/dashboard" replace />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/activity" element={<ActivityPage />} />
-              <Route path="/issues" element={<IssuesPage />} />
+          {/* Root: resolve the org and redirect to /:orgSlug/dashboard */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<OrgRedirect />} />
 
-              <Route path="/projects/:projectId" element={<ProjectLayout />}>
-                <Route index element={<Navigate to={"summary"} replace />} />
+            {/* Every app route lives under /:orgSlug */}
+            <Route path="/:orgSlug" element={<AppLayout />}>
+              {/* /:orgSlug  →  /:orgSlug/dashboard */}
+              <Route index element={<Navigate to="dashboard" replace />} />
+
+              <Route path="dashboard" element={<DashboardPage />} />
+              <Route path="activity" element={<ActivityPage />} />
+              <Route path="issues" element={<IssuesPage />} />
+
+              {/* Projects nested under the org */}
+              <Route path="projects/:projectId" element={<ProjectLayout />}>
+                <Route index element={<Navigate to="summary" replace />} />
                 <Route path="summary" element={<SummaryPage />} />
                 <Route path="list" element={<TaskListPage />} />
                 <Route path="board" element={<TaskBoardPage />} />
               </Route>
 
-              <Route
-                path="/organization/:orgSlug"
-                element={<OrganizationLayout />}
-              >
-                <Route index element={<Navigate to={"project"} replace />} />
+              {/* Organization management pages */}
+              <Route path="organization" element={<OrganizationLayout />}>
+                <Route index element={<Navigate to="project" replace />} />
                 <Route path="project" element={<ProjectListPage />} />
               </Route>
             </Route>

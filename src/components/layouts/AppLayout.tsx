@@ -1,32 +1,57 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams, useNavigate } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalRegistry } from "../modals/ModalRegistry";
 import { useModalStore } from "../../stores/useModalStore";
+import { useOrganizations } from "../../features/organization/hooks/useOrganizations";
+import { useOrgStore } from "../../stores/useOrgStore";
 
 export const AppLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [selectedOrganizationName, setSelectedOrganizationName] = useState<string | null>("Create An Organization");
+
+  const { orgSlug } = useParams<{ orgSlug: string }>();
+  const navigate = useNavigate();
+
+  const { organizationsData, isLoading } = useOrganizations();
+  const { setActiveOrg } = useOrgStore();
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
 
-  const onOrganizationChange = () => {
-    // TODO: Open organization modal
-    useModalStore.getState().openModal("create_organization");
-  };
+  // When Page loads, check if an organization exist, If yes set that organization or the first organization as active
+  // If no organization exist prompt the user to create an organization
+  useEffect(() => {
+    if (isLoading) return;
+
+    const orgs = organizationsData?.data.organizations ?? [];
+
+    if (orgs.length === 0) {
+      // No organizations found — prompt user to create one
+      useModalStore.getState().openModal("create_organization");
+      return;
+    }
+
+    // Try to match the slug in the URL against the user's orgs
+    const matchedOrg = orgs.find((o) => o.slug === orgSlug);
+
+    if (!matchedOrg) {
+      // Slug is invalid or missing — fall back to the first org
+      navigate(`/${orgs[0].slug}/dashboard`, { replace: true });
+      return;
+    }
+
+    // Set the matched org as active in the global store
+    setActiveOrg(matchedOrg);
+  }, [isLoading, organizationsData, orgSlug, navigate, setActiveOrg]);
 
   return (
-
     //no full window scrolling
     <div className="relative flex flex-col h-screen w-full overflow-hidden font-public-sans">
       <Topbar
         onToggleSidebar={toggleSidebar}
         isSidebarOpen={isSidebarOpen}
-        onOrganizationChange={onOrganizationChange}
-        selectedOrganizationName={selectedOrganizationName}
       />
       <div className="flex flex-1 min-h-0">
         <Sidebar isOpen={isSidebarOpen} />
