@@ -25,15 +25,16 @@ export const getOrganizationProjects = async (
 };
 
 // POST /organization/:orgSlug/projects
-export const createProject = async ({ orgSlug, name, key, lead }: CreateProjectPayload) => {
-  const response = await fetch(`${BASE_URL}/organization/${orgSlug}/projects`, {
+export const createProject = async ({ orgSlug, slug, name, key, description, lead }: CreateProjectPayload) => {
+  const targetSlug = orgSlug || slug;
+  const response = await fetch(`${BASE_URL}/organization/${targetSlug}/projects`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
     credentials: "include",
-    body: JSON.stringify({ name, key, lead }),
+    body: JSON.stringify({ name, key, description, lead }),
   });
 
   if (!response.ok) {

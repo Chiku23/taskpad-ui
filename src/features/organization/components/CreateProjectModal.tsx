@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCreateProject } from "../../projects/hooks/useCreateProject";
 import { useGetOrganizationMembers } from "../hooks/useGetOrganizationMembers";
@@ -11,12 +11,14 @@ export const CreateProjectModal = ({ onSuccess }: CreateProjectModalProps) => {
   const { orgSlug = "" } = useParams<{ orgSlug: string }>();
 
   const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const [key, setKey] = useState("");
   const [lead, setLead] = useState<number | null>(null);
 
   const { mutateCreateProject, isPending } = useCreateProject(orgSlug);
   const { organizationsData: membersData } = useGetOrganizationMembers(orgSlug);
-  const members = (membersData as { data?: { members?: { user_id: number; user_name: string }[] } })?.data?.members ?? [];
+  const members =
+    (membersData as { data?: { members?: { user_id: number; user_name: string }[] } })?.data?.members ?? [];
 
   // Auto-generate key from name (uppercase, max 6 chars, letters only)
   const handleNameChange = (val: string) => {
@@ -31,7 +33,10 @@ export const CreateProjectModal = ({ onSuccess }: CreateProjectModalProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    mutateCreateProject({ orgSlug, name, key, lead: lead ?? undefined }, { onSuccess });
+    mutateCreateProject(
+      { orgSlug, name, key, description, lead: lead ?? undefined },
+      { onSuccess }
+    );
   };
 
   return (
@@ -51,6 +56,22 @@ export const CreateProjectModal = ({ onSuccess }: CreateProjectModalProps) => {
           type="text"
           placeholder="e.g. Backend API"
           required
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label
+          htmlFor="project-description"
+          className="text-xs font-bold text-text-ghost uppercase tracking-wide"
+        >
+          Description
+        </label>
+        <textarea
+          id="project-description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="text-text-main text-sm border border-app-border bg-app-input-bg px-4 py-2 h-20 rounded-lg w-full outline-none focus:border-app-button transition-colors"
+          placeholder="Add a short description…"
         />
       </div>
 

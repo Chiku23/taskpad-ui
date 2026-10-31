@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
-import { FaRegUserCircle, FaRegBuilding } from "react-icons/fa";
+import { FaRegBuilding } from "react-icons/fa";
 import { MdOutlineAdd } from "react-icons/md";
 
 import { CreateTaskButton } from "../../features/dashboard/components/CreateTaskButton";
@@ -11,6 +11,7 @@ import { SearchBar } from "../ui/SearchBar";
 import { useOrgStore } from "../../stores/useOrgStore";
 import { useOrganizations } from "../../features/organization/hooks/useOrganizations";
 import { useModalStore } from "../../stores/useModalStore";
+import { ProfileDropdown } from "./ProfilleDropdown";
 
 interface TopbarProps {
   onToggleSidebar: () => void;
@@ -19,6 +20,7 @@ interface TopbarProps {
 
 export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
   const navigate = useNavigate();
+  const { orgSlug } = useParams<{ orgSlug: string }>();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -46,6 +48,8 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
     setDropdownOpen(false);
     useModalStore.getState().openModal("create_organization");
   };
+
+  const currentOrgSlug = orgSlug || activeOrg?.slug || "";
 
   return (
     <div className="p-3 sticky top-0 w-full bg-app-topbar grid grid-cols-3 items-center border-y border-app-border">
@@ -132,7 +136,7 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
           className="text-sm bg-app-input-bg"
           placeholder="Type here...."
         />
-        <CreateTaskButton />
+        <CreateTaskButton slug={currentOrgSlug} />
       </div>
 
       {/* User related */}
@@ -143,9 +147,8 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
         <button className="hover:opacity-80 transition-opacity cursor-pointer">
           <IoSettingsOutline className="size-5" />
         </button>
-        <button className="hover:opacity-80 transition-opacity cursor-pointer">
-          <FaRegUserCircle className="size-5" />
-        </button>
+        {/* Profile Dropdown */}
+        <ProfileDropdown />
       </div>
     </div>
   );

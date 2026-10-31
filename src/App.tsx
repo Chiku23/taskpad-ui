@@ -47,7 +47,7 @@ function App() {
               <Route path="issues" element={<IssuesPage />} />
 
               {/* Projects nested under the org */}
-              <Route path="projects/:projectId" element={<ProjectLayout />}>
+              <Route path="projects/:projectSlug" element={<ProjectLayout />}>
                 <Route index element={<Navigate to="summary" replace />} />
                 <Route path="summary" element={<SummaryPage />} />
                 <Route path="list" element={<TaskListPage />} />
