@@ -4,14 +4,12 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { MdOutlineSpaceDashboard, MdOutlineAdd } from "react-icons/md";
 import { VscIssues, VscProject, VscChevronDown } from "react-icons/vsc";
 import { FaRegUserCircle } from "react-icons/fa";
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 import { IoSettingsOutline } from "react-icons/io5";
 
-import { useOrgProjects } from "../../features/projects/hooks/useOrgProjects";
+import { useGetProjects } from "../../features/projects/hooks/useGetProjects";
 import { useModalStore } from "../../stores/useModalStore";
-import type { Project } from "../../features/projects/types/projectTypes";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -62,19 +60,12 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
     });
   };
 
-  const { projectsData, isLoading: projectsLoading } = useOrgProjects(orgSlug || "");
+  const { projectsData, isLoading: projectsLoading } = useGetProjects(orgSlug || "");
   const projects = projectsData?.data?.projects || [];
 
   const openCreateProject = () => {
     useModalStore.getState().openModal("create_project");
   };
-
-  const openEditProject = (e: React.MouseEvent, project: Project) => {
-    e.preventDefault();
-    e.stopPropagation();
-    useModalStore.getState().openModal("edit_project", project);
-  };
-
   return (
     <div
       {...(!isOpen ? { inert: true } : {})}
@@ -195,16 +186,6 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                       </span>
                       <p className="truncate">{project.name}</p>
                     </Link>
-
-                    {/* Edit button — visible on hover */}
-                    <button
-                      onClick={(e) => openEditProject(e, project)}
-                      title="Edit project"
-                      aria-label={`Edit ${project.name}`}
-                      className="opacity-0 group-hover:opacity-100 size-5 flex items-center justify-center rounded hover:bg-app-item-active text-text-ghost hover:text-text-main transition-all cursor-pointer shrink-0 mr-0.5"
-                    >
-                      <HiOutlineDotsHorizontal className="size-4" />
-                    </button>
                   </div>
                 );
               })}

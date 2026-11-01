@@ -1,7 +1,7 @@
 import { BASE_URL } from "../../../lib/apiClient"
-import type { CreateProjectPayload, AddMemberPayload } from "../types/projectTypes";
+import type { GetProjectsResponse, CreateProjectPayload, AddMemberPayload } from "../types/projectTypes";
 
-export const getProjects = async(slug: string) => {
+export const getProjects = async(slug: string): Promise<GetProjectsResponse> => {
     const response = await fetch(`${BASE_URL}/organization/${slug}/projects`, {
         method: "GET",
         headers: {
@@ -62,6 +62,39 @@ export const addProjectMember = async({slug, addMemberData}: {slug: string, addM
 
     if(!response.ok){
         throw new Error("Failed to add member to project")
+    }
+
+    return await response.json();
+}
+
+export const getProjectMembers = async(slug: string) => {
+    const response = await fetch(`${BASE_URL}/project/${slug}/members`, {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json"
+        },
+        credentials: "include"
+    });
+
+    if(!response.ok){
+        throw new Error("Failed to fetch project members");
+    }
+
+     return await response.json();
+}
+
+export const updateProject = async({slug, updateProjectData}: {slug: string, updateProjectData: unknown}) => {
+    const response = await fetch(`${BASE_URL}/project/${slug}`, {
+        method: "PUT",
+        headers: {
+            "Content-type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(updateProjectData)
+    })
+
+    if(!response.ok){
+        throw new Error("Failed to update project")
     }
 
     return await response.json();

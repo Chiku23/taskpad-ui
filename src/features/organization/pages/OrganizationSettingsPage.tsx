@@ -45,7 +45,9 @@ export const OrganizationSettingsPage = () => {
   const [actionError, setActionError] = useState("");
   const [actionSuccess, setActionSuccess] = useState("");
 
-  const isOwner = currentOrg?.owner_id === user?.id;
+  //backend should return userId as well to check owner
+  //isOwner returns false because userId is missing
+  const isOwner = currentOrg?.owner_id === user?.id; 
 
   const handleOpenAddMember = () => {
     if (currentOrg) {
@@ -130,7 +132,7 @@ export const OrganizationSettingsPage = () => {
     <div className="flex flex-col gap-8 max-w-5xl">
       {/* Alert notices */}
       {actionError && (
-        <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm px-4 py-3 rounded-lg flex items-center justify-between">
+        <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm px-40 py-3 rounded-lg flex items-center justify-between">
           <span>{actionError}</span>
           <button
             onClick={() => setActionError("")}

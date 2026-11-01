@@ -35,7 +35,7 @@ export const Dropdown = ({ id, trigger, children, dropdownClassName, triggerClas
   }, [isOpen, closeDropdown]);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className={`relative h-full  ${isOpen ? "z-30" : "z-0"}`} ref={dropdownRef}>
       {/* Fires layout state update in Zustand store */}
       <button 
       id={String(id)}

@@ -33,7 +33,7 @@ export const CreateProjectModal = ({ onSuccess }: CreateProjectModalProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     mutateCreateProject(
-      { orgSlug, name, key, description, lead: lead ?? undefined },
+      { slug: orgSlug, projectFormData: {name, key, description, lead: lead ?? null }},
       { onSuccess }
     );
   };

@@ -1,3 +1,4 @@
+
 export interface Project {
   id: number;
   name: string;
@@ -25,8 +26,6 @@ export type GetProjectsResponse = {
 };
 
 export type CreateProjectPayload = {
-  orgSlug: string;
-  slug: string;
   name: string;
   key: string;
   description?: string;
