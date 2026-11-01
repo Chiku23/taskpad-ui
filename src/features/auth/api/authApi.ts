@@ -62,3 +62,19 @@ export const getUser = async() => {
 
     return await response.json();
 }
+
+export const logoutUser = async() => {
+    const response = await fetch(`${BASE_URL}/logout`, {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        credentials: "include"
+    })
+
+    if(!response.ok){
+        throw new Error("Something went wrong")
+    }
+
+    return await response.json();
+}
