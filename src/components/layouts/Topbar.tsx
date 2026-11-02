@@ -11,7 +11,7 @@ import { SearchBar } from "../ui/SearchBar";
 import { useOrgStore } from "../../stores/useOrgStore";
 import { useOrganizations } from "../../features/organization/hooks/useOrganizations";
 import { useModalStore } from "../../stores/useModalStore";
-import { ProfileDropdown } from "./ProfilleDropdown";
+import { ProfileDropdown } from "../../features/auth/components/ProfilleDropdown";
 
 interface TopbarProps {
   onToggleSidebar: () => void;
