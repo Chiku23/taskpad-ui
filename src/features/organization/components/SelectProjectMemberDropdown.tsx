@@ -1,22 +1,20 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Dropdown } from "../../../components/ui/Dropdown";
 import { useGetOrganizationMembers } from "../hooks/useGetOrganizationMembers";
 
 interface SelectProjectMemberDropdownProps {
   id: number | string;
-  onSelectUser: (id: number) => void;
+  selected: number | null;
+  onSelectUser?: (id: number) => void;
 }
 
-export const SelectProjectMemberDropdown = ({ id, onSelectUser }: SelectProjectMemberDropdownProps) => {
-  const [projectMember, setProjectMember] = useState("Unassigned");
+export const SelectProjectMemberDropdown = ({ id, onSelectUser, selected }: SelectProjectMemberDropdownProps) => {
   const { orgSlug } = useParams();
   const { organizationMembersData } = useGetOrganizationMembers(orgSlug || "");
   const members = organizationMembersData?.data?.members || [];
-
+  const selectedMember = members.find((member) => member.id === selected);
   const handleUserSelection = (member) => {
-    setProjectMember(member.user_email)
-    onSelectUser(member.id)
+    onSelectUser?.(member.user_id);
   }
 
   return (
@@ -26,7 +24,7 @@ export const SelectProjectMemberDropdown = ({ id, onSelectUser }: SelectProjectM
       triggerClassName="w-full h-full text-left cursor-pointer flex items-center" 
       trigger={
         <div className="p-2">
-            {projectMember || "Unassigned"}
+            {selectedMember?.user_email || "Unassigned"}
         </div>
       }
     >

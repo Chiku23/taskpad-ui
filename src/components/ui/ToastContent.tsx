@@ -20,6 +20,8 @@ export const ToastContent = () => {
       return;
     }
 
+    setShouldRender(true);
+
     // Trigger exit animation right before removing
     const exitTimer = setTimeout(() => {
       setIsExiting(true);

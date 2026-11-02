@@ -1,12 +1,14 @@
+import { useState } from "react";
 import { useModalStore } from "../../../stores/useModalStore"; 
 import { Link, useParams } from "react-router-dom"; 
 import { useGetProjects } from "../../projects/hooks/useGetProjects.ts"; 
 import type { Project, RouteParams } from "../../projects/types/projectTypes.ts"; 
 import { formatDate } from "../../../utils/formatDate.ts"; 
 import { ProjectSettingDropdown } from "../components/ProjectSettingDropdown.tsx"; 
-import { SelectProjectMemberDropdown } from "../components/SelectProjectMemberDropdown.tsx"; 
+import { SelectProjectLeadDropdown } from "../components/SelectProjectLeadDropdown.tsx";
 
 export const ProjectListPage = () => {
+  const [selectedLead, setSelectedLead] = useState<Record<number, number | null>>({});
   const { openModal } = useModalStore();
   const { orgSlug } = useParams<RouteParams>() as RouteParams;
   const { projectsData } = useGetProjects(orgSlug);
@@ -43,7 +45,12 @@ export const ProjectListPage = () => {
             </thead>
             <tbody className="divide-y divide-app-border text-text-muted text-sm">
               {currentProjects.length > 0 ? (
-                currentProjects.map((project) => (
+                currentProjects.map((project) => 
+                {
+                   const activeLeadId = selectedLead[project.id] !== undefined 
+                    ? selectedLead[project.id] 
+                    : project.lead_id;
+                  return (
                   <tr 
                     key={project.id} 
                     className="group hover:bg-app-card/40 transition-all duration-150 ease-in-out"
@@ -66,7 +73,11 @@ export const ProjectListPage = () => {
                     {/* Project Lead Dropdown Column */}
                     <td className="px-5 py-2 align-middle overflow-visible relative">
                       <div className="max-w-[200px] w-full">
-                        <SelectProjectMemberDropdown id={`select-project-${project.id}-lead`} />
+                        <SelectProjectLeadDropdown 
+                        id={`select-project-${project.id}-lead`} 
+                        projectSlug={project.slug}
+                        selected={activeLeadId}
+                        onSelectUser={(newId) => setSelectedLead(prev => ({...prev, [project.id]: newId}))}/>
                       </div>
                     </td>
 
@@ -82,7 +93,7 @@ export const ProjectListPage = () => {
                       project={project}/>
                     </td>
                   </tr>
-                ))
+                )})
               ) : (
                 /* Empty State Row */
                 <tr>

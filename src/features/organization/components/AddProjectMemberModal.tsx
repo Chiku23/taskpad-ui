@@ -12,7 +12,7 @@ export const AddProjectMemberModal = ({
   onSuccess,
   projectData
 }: AddProjectMemberModalProps) => {
-  const [userId, setUserId] = useState(0);
+  const [userId, setUserId] = useState<number | null>(null);
   const [role, setRole] = useState<ProjectRole>("member");
 
   const {addToast} = useToastStore();
@@ -40,6 +40,7 @@ export const AddProjectMemberModal = ({
           <div className="border border-app-border bg-app-input-bg rounded-lg">
             <SelectProjectMemberDropdown
             id={"member-email"} 
+            selected={userId}
             onSelectUser={(id) => setUserId(id)}/>
           </div>
         </div>
