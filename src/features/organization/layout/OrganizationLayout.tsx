@@ -20,7 +20,7 @@ export const OrganizationLayout = () => {
 
   return (
     <div className="flex flex-col bg-app-canvas min-h-screen">
-      <div className="sticky top-0 flex flex-col gap-2 border-b border-app-border bg-app-canvas pt-5 px-10">
+      <div className="sticky top-0 z-50 flex flex-col gap-2 border-b border-app-border bg-app-canvas pt-5 px-10">
         {/* header */}
         <div className="flex items-center text-text-muted gap-4">
           <div className="flex gap-2 items-center">

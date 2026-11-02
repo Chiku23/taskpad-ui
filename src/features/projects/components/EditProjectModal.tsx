@@ -16,7 +16,7 @@ export const EditProjectModal = ({ onSuccess }: EditProjectModalProps) => {
   const [name, setName] = useState(project?.name ?? "");
   const [key, setKey] = useState(project?.key ?? "");
   const [lead, setLead] = useState<number | null>(
-    project?.lead_id ? Number(project.lead_id) : null
+    project?.lead_id ? Number(project.lead_id) : null,
   );
 
   const { mutateUpdateProject, isPending } = useUpdateProject(orgSlug);
@@ -26,8 +26,15 @@ export const EditProjectModal = ({ onSuccess }: EditProjectModalProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     mutateUpdateProject(
-      { projectSlug: project.slug, name, key, lead: lead ?? undefined },
-      { onSuccess }
+      {
+        slug: project.slug,
+        updateProjectData: {
+          name,
+          key,
+          lead,
+        },
+      },
+      { onSuccess },
     );
   };
 
@@ -78,7 +85,9 @@ export const EditProjectModal = ({ onSuccess }: EditProjectModalProps) => {
         <select
           id="edit-project-lead"
           value={lead ?? ""}
-          onChange={(e) => setLead(e.target.value ? Number(e.target.value) : null)}
+          onChange={(e) =>
+            setLead(e.target.value ? Number(e.target.value) : null)
+          }
           className="text-text-main text-sm border border-app-border bg-app-input-bg px-4 py-2 rounded-lg font-semibold w-full outline-none focus:border-app-button transition-colors cursor-pointer"
         >
           <option value="">— No lead —</option>

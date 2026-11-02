@@ -1,3 +1,4 @@
+
 export interface Project {
   id: number;
   name: string;
@@ -7,7 +8,7 @@ export interface Project {
   type?: string;
   is_archived?: number | boolean;
   organization_id: number | string;
-  lead_id: number | null;
+  lead_id: number;
   created_at: string;
   updated_at: string;
 }
@@ -25,8 +26,6 @@ export type GetProjectsResponse = {
 };
 
 export type CreateProjectPayload = {
-  orgSlug: string;
-  slug: string;
   name: string;
   key: string;
   description?: string;
@@ -44,6 +43,6 @@ export type UpdateProjectPayload = {
 export type ProjectRole = "owner" | "admin" | "member" | "leader";
 
 export type AddMemberPayload = {
-  user_id: number;
+  user_id: number | null;
   role: ProjectRole;
 };

@@ -7,7 +7,8 @@ export type ModalType =
   | "create_project"
   | "edit_project"
   | "create_task"
-  | "add_org_member";
+  | "add_org_member"
+  | "add_project_member";
 
 export type ModalCombo =
   | { activeModal: "create_organization"; modalData?: Organization | null }

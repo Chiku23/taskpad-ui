@@ -45,7 +45,9 @@ export const OrganizationSettingsPage = () => {
   const [actionError, setActionError] = useState("");
   const [actionSuccess, setActionSuccess] = useState("");
 
-  const isOwner = currentOrg?.owner_id === user?.id;
+  //backend should return userId as well to check owner
+  //isOwner returns false because userId is missing
+  const isOwner = currentOrg?.owner_id === user?.id; 
 
   const handleOpenAddMember = () => {
     if (currentOrg) {

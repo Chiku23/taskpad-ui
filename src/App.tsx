@@ -15,6 +15,8 @@ import { ProjectListPage } from "./features/organization/pages/ProjectListPage";
 import { OrganizationSettingsPage } from "./features/organization/pages/OrganizationSettingsPage";
 import { ProtectedRoute } from "./components/ui/ProtectedRoute";
 import { OrgRedirect } from "./components/OrgRedirect";
+import { ToastContent } from "./components/ui/ToastContent";
+import { ProjectSettingsPage } from "./features/projects/pages/ProjectSettingsPage";
 
 /**
  * Renders the login and registration routes within the browser router.
@@ -53,6 +55,7 @@ function App() {
                 <Route path="summary" element={<SummaryPage />} />
                 <Route path="list" element={<TaskListPage />} />
                 <Route path="board" element={<TaskBoardPage />} />
+                <Route path="settings" element={<ProjectSettingsPage />} />
               </Route>
 
               {/* Organization management pages */}
@@ -65,6 +68,8 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      
+      <ToastContent />
     </QueryClientProvider>
   );
 }
