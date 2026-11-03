@@ -19,7 +19,7 @@ export const SelectProjectLeadDropdown = ({ id, projectSlug, onSelectUser, selec
       triggerClassName="w-full h-full text-left cursor-pointer flex items-center" 
       trigger={
         <div className="p-2">
-            {selectedMember ? selectedMember.user_id : "Unassigned"}
+            {selectedMember ? selectedMember.user_email : "Unassigned"}
         </div>
       }
     >
@@ -29,7 +29,7 @@ export const SelectProjectLeadDropdown = ({ id, projectSlug, onSelectUser, selec
             key={member.id}
             className="p-2 text-left"
             onClick={() => onSelectUser(member.user_id)}>
-                <span>{member.user_id}</span>
+                <span>{member.user_email}</span>
             </button>
         ))}
       </div>

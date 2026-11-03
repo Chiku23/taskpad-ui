@@ -3,7 +3,6 @@ import { VscProject } from "react-icons/vsc";
 import { GoOrganization } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
 import { useOrganizations } from "../hooks/useOrganizations";
-import { OrganizationSettingDropdown } from "../components/OrganizationSettingDropdown";
 
 const NAV_ITEMS = [
   { id: 1, name: "Projects", path: "project", icon: VscProject },
@@ -29,7 +28,6 @@ export const OrganizationLayout = () => {
               {currentOrg?.name}
             </h1>
           </div>
-          <OrganizationSettingDropdown />
         </div>
 
         {/* navigation */}
@@ -60,7 +58,7 @@ export const OrganizationLayout = () => {
       </div>
 
       {/* content */}
-      <div className="p-10">
+      <div className="mx-10 my-5 flex items-center">
         <Outlet />
       </div>
     </div>

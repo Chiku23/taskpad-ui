@@ -45,8 +45,6 @@ export const OrganizationSettingsPage = () => {
   const [actionError, setActionError] = useState("");
   const [actionSuccess, setActionSuccess] = useState("");
 
-  //backend should return userId as well to check owner
-  //isOwner returns false because userId is missing
   const isOwner = currentOrg?.owner_id === user?.id; 
 
   const handleOpenAddMember = () => {
@@ -129,7 +127,7 @@ export const OrganizationSettingsPage = () => {
   });
 
   return (
-    <div className="flex flex-col gap-8 max-w-5xl">
+    <div className="flex flex-col w-full gap-8">
       {/* Alert notices */}
       {actionError && (
         <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-sm px-4 py-3 rounded-lg flex items-center justify-between">
@@ -335,6 +333,7 @@ export const OrganizationSettingsPage = () => {
                     const initials = displayName
                       .slice(0, 2)
                       .toUpperCase();
+                    const currentUser = member.user_id === user.id;
 
                     return (
                       <tr
@@ -349,7 +348,7 @@ export const OrganizationSettingsPage = () => {
                             </div>
                             <div className="flex flex-col min-w-0">
                               <span className="font-semibold text-text-main truncate">
-                                {member.user_name || "—"}
+                                {currentUser ? `${member.user_name} (You)` : member.user_name}
                               </span>
                               <span className="text-xs text-text-ghost truncate">
                                 {member.user_email || "No email available"}
