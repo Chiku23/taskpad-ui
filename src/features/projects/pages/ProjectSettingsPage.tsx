@@ -7,10 +7,14 @@ import {
   IoSearchOutline,
   IoPersonAddOutline,
 } from "react-icons/io5";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { 
+  AiOutlineLoading3Quarters,
+  AiOutlineForm
+ } from "react-icons/ai";
 import { useGetProject } from "../hooks/useGetProject";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { formatDate } from "../../../utils/formatDate";
+import { useModalStore } from "../../../stores/useModalStore";
 
 export const ProjectSettingsPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -35,27 +39,45 @@ export const ProjectSettingsPage = () => {
     return nameMatch || emailMatch || roleMatch;
   });
 
+  const { openModal } = useModalStore();
+
   return (
     <div className="flex flex-col gap-4">
-      <div className="border border-app-border bg-app-card p-4 rounded-lg">
-        <div className="flex flex-col gap-8 p-6">
+      <div className="border border-app-border bg-app-card p-2 rounded-lg">
+        <div className="flex flex-col gap-4 p-2">
           {/*Heading */}
           <div className="flex items-center gap-4">
             <IoAlbums className="size-10 border text-app-button border-app-border bg-app-button/10 p-2 rounded-lg" />
             <div className="flex flex-col">
               <span className="font-bold text-xl">Project Details</span>
               <p className="text-xs text-text-ghost">
-                General details and information about your project
+                General information about the project
               </p>
+            </div>
+            <div className="EditProject">
+              <AiOutlineForm 
+                className="size-10 border text-app-button cursor-pointer p-2 rounded-lg hover:bg-app-button/10"
+                title="Edit Project Details"
+                onClick={() => openModal({ activeModal: "edit_project", modalData: currentProject })}
+              />
             </div>
           </div>
 
-          {/* project info */}
-          <div className="grid grid-cols-2">
-            <div className="flex flex-col">
-              <span className="text-xs text-text-ghost">TOTAL MEMBERS</span>
-              <span className="text-sm font-bold">{members.length}</span>
+          {/* Project Information */}
+          <div>
+            <div>
+              <span className="text-sm font-bold text-text-ghost uppercase tracking-wider">Name: </span>
+              <span className="text-sm font-semibold text-text-primary">{currentProject?.name}</span>
             </div>
+            <div>
+              <span className="text-sm font-bold text-text-ghost uppercase tracking-wider">Key: </span>
+              <span className="text-sm font-semibold text-text-primary">{currentProject?.key}</span>
+            </div>
+            <div>
+              <span className="text-sm font-bold text-text-ghost uppercase tracking-wider">Lead: </span>
+              <span className="text-sm font-semibold text-text-primary" title={currentProject?.lead?.email}>{currentProject?.lead?.name}</span>
+            </div>
+            <div className="text-sm text-text-primary mt-2">{currentProject?.description}</div>
           </div>
         </div>
       </div>
