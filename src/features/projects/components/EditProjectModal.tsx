@@ -1,10 +1,5 @@
 import { useState } from "react";
-<<<<<<< Updated upstream
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-=======
-import { useParams } from "react-router-dom";
-
->>>>>>> Stashed changes
 import { useModalStore } from "../../../stores/useModalStore";
 import { useUpdateProject } from "../../projects/hooks/useUpdateProject";
 import { useGetOrganizationMembers } from "../../organization/hooks/useGetOrganizationMembers";

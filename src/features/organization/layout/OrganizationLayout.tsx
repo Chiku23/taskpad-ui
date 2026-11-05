@@ -1,12 +1,7 @@
 import { Link, useLocation, Outlet, useParams } from "react-router-dom";
-<<<<<<< Updated upstream
-import { VscProject } from "react-icons/vsc";
-import { IoSettingsOutline } from "react-icons/io5";
-=======
 
 import { Icon } from "../../../components/ui/Icon";
 
->>>>>>> Stashed changes
 import { useOrganizations } from "../hooks/useOrganizations";
 
 const NAV_ITEMS = [
@@ -28,12 +23,8 @@ export const OrganizationLayout = () => {
         {/* header */}
         <div className="flex items-center text-text-muted gap-4">
           <div className="flex gap-2 items-center">
-<<<<<<< Updated upstream
-            <h1 className="text-2xl font-bold capitalize">
-=======
             <Icon name="organization" size={30} />
             <h1 className="text-2xl font-semibold capitalize">
->>>>>>> Stashed changes
               {currentOrg?.name}
             </h1>
           </div>

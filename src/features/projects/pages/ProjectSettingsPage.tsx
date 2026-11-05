@@ -4,19 +4,6 @@ import { useParams } from "react-router-dom";
 import { Icon } from "../../../components/ui/Icon";
 
 import { useGetProjectMembers } from "../hooks/useGetProjectMembers";
-<<<<<<< Updated upstream
-import {
-  IoAlbums,
-  IoTrashOutline,
-  IoSearchOutline,
-  IoPersonAddOutline,
-} from "react-icons/io5";
-import { 
-  AiOutlineLoading3Quarters,
-  AiOutlineForm
- } from "react-icons/ai";
-=======
->>>>>>> Stashed changes
 import { useGetProject } from "../hooks/useGetProject";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { formatDate } from "../../../utils/formatDate";
@@ -61,11 +48,11 @@ export const ProjectSettingsPage = () => {
               </p>
             </div>
             <div className="EditProject">
-              <AiOutlineForm 
-                className="size-10 border text-app-button cursor-pointer p-2 rounded-lg hover:bg-app-button/10"
-                title="Edit Project Details"
-                onClick={() => openModal({ activeModal: "edit_project", modalData: currentProject })}
-              />
+              <button
+              className="border text-app-button cursor-pointer p-2 rounded-lg hover:bg-app-button/10"
+              onClick={() => openModal({ activeModal: "edit_project", modalData: currentProject })}>
+              <Icon name="updated" size={20}/>
+                </button>
             </div>
           </div>
 
