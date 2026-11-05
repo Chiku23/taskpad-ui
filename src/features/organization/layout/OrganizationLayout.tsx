@@ -1,9 +1,7 @@
 import { Link, useLocation, Outlet, useParams } from "react-router-dom";
 import { VscProject } from "react-icons/vsc";
-import { GoOrganization } from "react-icons/go";
 import { IoSettingsOutline } from "react-icons/io5";
 import { useOrganizations } from "../hooks/useOrganizations";
-import { OrganizationSettingDropdown } from "../components/OrganizationSettingDropdown";
 
 const NAV_ITEMS = [
   { id: 1, name: "Projects", path: "project", icon: VscProject },
@@ -24,12 +22,10 @@ export const OrganizationLayout = () => {
         {/* header */}
         <div className="flex items-center text-text-muted gap-4">
           <div className="flex gap-2 items-center">
-            <GoOrganization className="w-7 h-7" />
-            <h1 className="text-2xl font-semibold capitalize">
+            <h1 className="text-2xl font-bold capitalize">
               {currentOrg?.name}
             </h1>
           </div>
-          <OrganizationSettingDropdown />
         </div>
 
         {/* navigation */}
@@ -43,9 +39,9 @@ export const OrganizationLayout = () => {
                 <li key={item.id}>
                   <Link
                     to={item.path}
-                    className={`flex items-center gap-1.5 px-1 pb-2 transition-colors ${
+                    className={`flex items-center gap-1.5 px-1 pb-2 transition-colors font-semibold ${
                       isActive
-                        ? "border-b-2 border-app-button text-text-main font-semibold"
+                        ? "border-b-2 border-app-button text-text-main"
                         : "hover:text-text-muted"
                     }`}
                   >
@@ -60,7 +56,7 @@ export const OrganizationLayout = () => {
       </div>
 
       {/* content */}
-      <div className="p-10">
+      <div className="mx-10 my-5 flex items-center">
         <Outlet />
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useModalStore } from "../../../stores/useModalStore";
 import { useUpdateProject } from "../../projects/hooks/useUpdateProject";
 import { useGetOrganizationMembers } from "../../organization/hooks/useGetOrganizationMembers";
@@ -11,9 +11,12 @@ interface EditProjectModalProps {
 
 export const EditProjectModal = ({ onSuccess }: EditProjectModalProps) => {
   const { orgSlug = "" } = useParams<{ orgSlug: string }>();
+  const navigate = useNavigate();
+  const location = useLocation();
   const project = useModalStore((s) => s.modalData) as Project;
 
   const [name, setName] = useState(project?.name ?? "");
+  const [description, setDescription] = useState(project?.description ?? "");
   const [key, setKey] = useState(project?.key ?? "");
   const [lead, setLead] = useState<number | null>(
     project?.lead_id ? Number(project.lead_id) : null,
@@ -30,11 +33,26 @@ export const EditProjectModal = ({ onSuccess }: EditProjectModalProps) => {
         slug: project.slug,
         updateProjectData: {
           name,
+          description,
           key,
           lead,
         },
       },
-      { onSuccess },
+      {
+        onSuccess: (response) => {
+          onSuccess();
+          const newSlug = response?.data?.project?.slug;
+          if (newSlug && project?.slug && newSlug !== project.slug) {
+            if (location.pathname.includes(`/projects/${project.slug}`)) {
+              const updatedPath = location.pathname.replace(
+                `/projects/${project.slug}`,
+                `/projects/${newSlug}`
+              );
+              navigate(updatedPath, { replace: true });
+            }
+          }
+        },
+      },
     );
   };
 
@@ -54,6 +72,22 @@ export const EditProjectModal = ({ onSuccess }: EditProjectModalProps) => {
           className="text-text-main text-sm border border-app-border bg-app-input-bg px-4 py-2 rounded-lg font-semibold w-full outline-none focus:border-app-button transition-colors"
           type="text"
           required
+        />
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <label
+          htmlFor="edit-project-description"
+          className="text-xs font-bold text-text-ghost uppercase tracking-wide"
+        >
+          Description
+        </label>
+        <textarea
+          id="edit-project-description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="text-text-main text-sm border border-app-border bg-app-input-bg px-4 py-2 h-20 rounded-lg w-full outline-none focus:border-app-button transition-colors"
+          placeholder="Add a short description…"
         />
       </div>
 

@@ -8,6 +8,7 @@ export const useUpdateProject = (orgSlug: string) => {
     mutationFn: updateProject,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects", orgSlug] });
+      queryClient.invalidateQueries({ queryKey: ["project"] });
     },
   });
 

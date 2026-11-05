@@ -15,7 +15,7 @@ export const ProjectListPage = () => {
   const currentProjects: Project[] = projectsData?.data?.projects || [];
 
   return (
-    <div className="flex flex-col gap-6 w-full max-w-7xl mx-auto px-4 sm:px-6">
+    <div className="flex flex-col gap-6 w-full">
       {/* Top Action Bar */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-app-border pb-5">
         <div>
