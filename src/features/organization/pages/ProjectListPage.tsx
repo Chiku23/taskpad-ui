@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useModalStore } from "../../../stores/useModalStore"; 
 import { Link, useParams } from "react-router-dom"; 
+
+import { ProjectSettingDropdown } from "../components/ProjectSettingDropdown.tsx"; 
+import { SelectProjectLeadDropdown } from "../components/SelectProjectLeadDropdown.tsx";
+
+import { useModalStore } from "../../../stores/useModalStore"; 
 import { useGetProjects } from "../../projects/hooks/useGetProjects.ts"; 
 import type { Project, RouteParams } from "../../projects/types/projectTypes.ts"; 
 import { formatDate } from "../../../utils/formatDate.ts"; 
-import { ProjectSettingDropdown } from "../components/ProjectSettingDropdown.tsx"; 
-import { SelectProjectLeadDropdown } from "../components/SelectProjectLeadDropdown.tsx";
 
 export const ProjectListPage = () => {
   const [selectedLead, setSelectedLead] = useState<Record<number, number | null>>({});

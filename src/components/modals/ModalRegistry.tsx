@@ -1,13 +1,14 @@
-import { useModalStore } from "../../stores/useModalStore";
 import { ModalShell } from "./ModalShell";
 
+import { useModalStore } from "../../stores/useModalStore";
 import { CreateOrganizationModal } from "../../features/organization/components/CreateOrganizationModal";
 import { CreateProjectModal } from "../../features/organization/components/CreateProjectModal";
 import { EditProjectModal } from "../../features/projects/components/EditProjectModal";
 import { CreateTaskModal } from "../../features/dashboard/components/CreateTaskModal";
 import { AddOrgMemberModal } from "../../features/organization/components/AddOrgMemberModal";
-import type { Organization } from "../../features/organization/types/organizationTypes";
 import { AddProjectMemberModal } from "../../features/organization/components/AddProjectMemberModal";
+
+import type { Organization } from "../../features/organization/types/organizationTypes";
 
 export const ModalRegistry = () => {
   const { activeModal, modalData, closeModal } = useModalStore();

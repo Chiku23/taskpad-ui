@@ -1,11 +1,17 @@
 import { Link, useLocation, Outlet, useParams } from "react-router-dom";
+<<<<<<< Updated upstream
 import { VscProject } from "react-icons/vsc";
 import { IoSettingsOutline } from "react-icons/io5";
+=======
+
+import { Icon } from "../../../components/ui/Icon";
+
+>>>>>>> Stashed changes
 import { useOrganizations } from "../hooks/useOrganizations";
 
 const NAV_ITEMS = [
-  { id: 1, name: "Projects", path: "project", icon: VscProject },
-  { id: 2, name: "Settings & Members", path: "settings", icon: IoSettingsOutline },
+  { id: 1, name: "Projects", path: "project", icon: "project" as const },
+  { id: 2, name: "Settings & Members", path: "settings", icon: "settings" as const },
 ];
 
 export const OrganizationLayout = () => {
@@ -22,7 +28,12 @@ export const OrganizationLayout = () => {
         {/* header */}
         <div className="flex items-center text-text-muted gap-4">
           <div className="flex gap-2 items-center">
+<<<<<<< Updated upstream
             <h1 className="text-2xl font-bold capitalize">
+=======
+            <Icon name="organization" size={30} />
+            <h1 className="text-2xl font-semibold capitalize">
+>>>>>>> Stashed changes
               {currentOrg?.name}
             </h1>
           </div>
@@ -32,7 +43,6 @@ export const OrganizationLayout = () => {
         <nav className="mt-4">
           <ul className="flex gap-4 text-text-ghost text-sm">
             {NAV_ITEMS.map((item) => {
-              const Icon = item.icon;
               const isActive = location.pathname.endsWith(item.path);
 
               return (
@@ -45,7 +55,7 @@ export const OrganizationLayout = () => {
                         : "hover:text-text-muted"
                     }`}
                   >
-                    <Icon className="size-4" />
+                    <Icon name={item.icon} size={16}/>
                     <span>{item.name}</span>
                   </Link>
                 </li>

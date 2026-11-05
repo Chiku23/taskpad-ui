@@ -1,17 +1,14 @@
 import { useParams, Link, Outlet, useLocation } from "react-router-dom";
+
+import { Icon } from "../../../components/ui/Icon";
+
 import { useGetProject } from "../hooks/useGetProject";
-import {
-  IoSettingsOutline,
-  IoGlobeOutline,
-  IoList,
-  IoPodium,
-} from "react-icons/io5";
 
 const NAV_ITEMS = [
-  { id: "1", name: "Summary", path: "summary", icon: IoGlobeOutline },
-  { id: "2", name: "List", path: "list", icon: IoList },
-  { id: "3", name: "Board", path: "board", icon: IoPodium },
-  { id: "4", name: "Setting & members", path: "settings", icon: IoSettingsOutline},
+  { id: "1", name: "Summary", path: "summary", icon: "globe" as const},
+  { id: "2", name: "List", path: "list", icon: "table" as const},
+  { id: "3", name: "Board", path: "board", icon: "column" as const},
+  { id: "4", name: "Setting & members", path: "settings", icon: "settings" as const},
 ];
 
 export const ProjectLayout = () => {
@@ -32,7 +29,6 @@ export const ProjectLayout = () => {
         <nav className="mt-4">
           <ul className="flex gap-4 text-text-ghost text-sm">
             {NAV_ITEMS.map((item) => {
-              const Icon = item.icon;
               const isActive = location.pathname.endsWith(item.path);
 
               return (
@@ -41,7 +37,7 @@ export const ProjectLayout = () => {
                     to={item.path}
                     className={`flex items-center gap-1 px-1 ${isActive ? "border-b-2 border-text-muted" : ""}`}
                   >
-                    <Icon className="size-4" />
+                    <Icon name={item.icon} size={16}/>
                     <span className="font-semibold">{item.name}</span>
                   </Link>
                 </li>

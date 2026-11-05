@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import type { RegisterPayload } from "../types/authTypes";
 import { registerUser } from "../api/authApi";
-import { useNavigate } from "react-router-dom";
 
 export const RegisterForm = () => {
   const [errorMessage, setErrorMessage] = useState("");

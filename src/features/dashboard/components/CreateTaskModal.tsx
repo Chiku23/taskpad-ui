@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import type { Project } from "../../projects/types/projectTypes.ts";
+
 import { Dropdown } from "../../../components/ui/Dropdown.tsx";
-import { IoReloadOutline } from "react-icons/io5";
+import { Icon } from "../../../components/ui/Icon.tsx";
+
+import type { Project } from "../../projects/types/projectTypes.ts";
 
 interface CreateProjectModalProps {
   onSuccess: () => void;
@@ -23,7 +25,7 @@ export const CreateTaskModal = ({
     <div>
       {isLoading ? (
         <div className="flex h-full w-full flex-col items-center justify-center gap-3 p-6">
-          <IoReloadOutline className="size-8 animate-spin text-blue-500" />
+          <Icon name="loader" className="size-8 animate-spin text-blue-500" />
           <p className="text-sm font-medium text-text-ghost">
             Loading...
           </p>

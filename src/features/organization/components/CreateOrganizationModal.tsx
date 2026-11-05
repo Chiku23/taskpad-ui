@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { useCreateOrganization } from "../hooks/useCreateOrganization";
 import { generateSlug } from "../../../utils/generateSlug";
 import { useOrgStore } from "../../../stores/useOrgStore";

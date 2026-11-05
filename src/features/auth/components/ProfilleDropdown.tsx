@@ -1,8 +1,10 @@
+import { useQueryClient } from "@tanstack/react-query";
+
 import { Dropdown } from "../../../components/ui/Dropdown";
-import { IoPersonCircleOutline, IoSettingsOutline, IoColorPaletteOutline, IoLogOutOutline   } from "react-icons/io5";
+import { Icon } from "../../../components/ui/Icon";
+
 import { useAuth } from "../hooks/useAuth";
 import { logoutUser } from "../api/authApi";
-import { useQueryClient } from "@tanstack/react-query";
 
 export const ProfileDropdown = () => {
   const {user} = useAuth();
@@ -19,7 +21,7 @@ export const ProfileDropdown = () => {
       id="profile"
       trigger={
         <div className="hover:text-text-ghost cursor-pointer">
-          <IoPersonCircleOutline className="size-5" />
+          <Icon name="user" className="size-5" />
         </div>
       }
       dropdownClassName="w-84 mt-4 text-left border border-app-border rounded-sm right-0 bg-app-input-bg"
@@ -39,19 +41,19 @@ export const ProfileDropdown = () => {
       <ul className="flex text-sm flex-col gap-1 py-2">
         <li>
             <button className="flex items-center gap-2 w-full hover:bg-app-border cursor-pointer py-2 px-4 rounded-sm">
-                <IoPersonCircleOutline className="size-5"/>
+                <Icon name="user" className="size-5"/>
                 Profile
             </button>
         </li>
         <li>
           <button className="flex items-center gap-2 w-full hover:bg-app-border cursor-pointer py-2 px-4 rounded-sm">
-            <IoSettingsOutline className="size-5"/>
+            <Icon name="settings" className="size-5"/>
             Account setting
           </button>
         </li>
         <li>
             <button className="flex items-center gap-2 w-full hover:bg-app-border cursor-pointer py-2 px-4 rounded-sm">
-                <IoColorPaletteOutline  className="size-5"/>
+                <Icon name="theme"  className="size-5"/>
                 Theme
             </button>
         </li>
@@ -60,7 +62,7 @@ export const ProfileDropdown = () => {
          <button 
          onClick={handleLogout}
          className="flex items-center gap-2 w-full hover:bg-app-border cursor-pointer py-2 px-4 rounded-sm">
-                <IoLogOutOutline   className="size-5"/>
+                <Icon name="logout" className="size-5"/>
                 Logout
          </button>
       </li>

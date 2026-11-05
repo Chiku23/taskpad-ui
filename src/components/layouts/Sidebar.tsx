@@ -1,15 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-
-import { MdOutlineSpaceDashboard, MdOutlineAdd } from "react-icons/md";
-import { VscIssues, VscProject, VscChevronDown } from "react-icons/vsc";
-import { FaRegUserCircle } from "react-icons/fa";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-
-import { IoSettingsOutline } from "react-icons/io5";
-
 import { useGetProjects } from "../../features/projects/hooks/useGetProjects";
 import { useModalStore } from "../../stores/useModalStore";
+
+import { Icon } from "../ui/Icon";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -20,26 +14,26 @@ const NAV_ITEMS = [
     id: "1",
     name: "For you",
     path: "activity",
-    icon: FaRegUserCircle,
+    icon: "user" as const,
   },
   {
     id: "2",
     name: "Dashboard",
     path: "dashboard",
-    icon: MdOutlineSpaceDashboard,
+    icon: "dashboard" as const,
   },
   {
     id: "3",
     name: "Issues",
     path: "issues",
-    icon: VscIssues,
+    icon: "issue" as const,
     issueCount: 5,
   },
   {
     id: "4",
     name: "Settings",
     path: "organization/settings",
-    icon: IoSettingsOutline,
+    icon: "settings" as const,
   },
 ];
 
@@ -78,7 +72,6 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
           const isActive =
             location.pathname === url ||
             location.pathname.startsWith(`${url}/`);
-          const Icon = item.icon;
 
           return (
             <div key={item.id} className="flex flex-col w-full">
@@ -94,7 +87,7 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                   className="flex items-center gap-2 flex-1 min-w-0 p-0.5"
                 >
                   <span className="size-5 flex items-center justify-center shrink-0">
-                    <Icon className="size-5" />
+                    <Icon name={item.icon} className="size-5" />
                   </span>
                   <p className="truncate">{item.name}</p>
                 </Link>
@@ -125,8 +118,10 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
             aria-expanded={isProjectsOpen}
             aria-label="Toggle projects list"
           >
-            <VscChevronDown
-              className={`size-3.5 transition-transform duration-200 ${
+            <Icon
+              name="angleDown"
+              size="16"
+              className={`transition-transform duration-200 ${
                 isProjectsOpen ? "rotate-0" : "-rotate-90"
               }`}
             />
@@ -139,7 +134,10 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
             aria-label="Create new project"
             className="size-5 flex items-center justify-center rounded hover:bg-app-item-hover text-text-ghost hover:text-text-main transition-colors cursor-pointer"
           >
-            <MdOutlineAdd className="size-4" />
+            <Icon
+            size="16"
+            name="plus"
+             />
           </button>
         </div>
 
@@ -147,7 +145,7 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
           <div className="flex flex-col gap-1">
             {projectsLoading && (
               <div className="flex items-center gap-2 px-2 py-1 text-text-ghost">
-                <AiOutlineLoading3Quarters className="size-4 animate-spin" />
+                <Icon name="loader" size="5" className="animate-spin" />
                 <span className="text-xs">Loading…</span>
               </div>
             )}
@@ -182,7 +180,7 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                       className="flex items-center gap-2 flex-1 min-w-0 p-0.5"
                     >
                       <span className="size-5 flex items-center justify-center shrink-0">
-                        <VscProject className="size-4" />
+                        <Icon name="project" className="size-4" />
                       </span>
                       <p className="truncate">{project.name}</p>
                     </Link>

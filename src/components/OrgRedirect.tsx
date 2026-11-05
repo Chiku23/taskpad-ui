@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { ModalRegistry } from "./modals/ModalRegistry";
+
 import { useOrganizations } from "../features/organization/hooks/useOrganizations";
 import { useModalStore } from "../stores/useModalStore";
 import { useOrgStore } from "../stores/useOrgStore";
-import { ModalRegistry } from "./modals/ModalRegistry";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
+import { Icon } from "./ui/Icon";
 
 /**
  * Rendered at the root "/" route.
@@ -39,7 +42,7 @@ export const OrgRedirect = () => {
   if (isLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center bg-app-canvas text-text-muted">
-        <AiOutlineLoading3Quarters className="size-6 animate-spin" />
+        <Icon name="loader" className="size-6 animate-spin" />
       </div>
     );
   }
