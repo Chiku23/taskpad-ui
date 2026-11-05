@@ -1,17 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
-import { IoIosNotificationsOutline } from "react-icons/io";
-import { IoSettingsOutline } from "react-icons/io5";
-import { FaRegBuilding } from "react-icons/fa";
-import { MdOutlineAdd } from "react-icons/md";
 
-import { CreateTaskButton } from "../../features/dashboard/components/CreateTaskButton";
 import { SearchBar } from "../ui/SearchBar";
+import { CreateTaskButton } from "../../features/dashboard/components/CreateTaskButton";
+import { ProfileDropdown } from "../../features/auth/components/ProfilleDropdown";
+import { Icon } from "../ui/Icon";
+
 import { useOrgStore } from "../../stores/useOrgStore";
 import { useOrganizations } from "../../features/organization/hooks/useOrganizations";
 import { useModalStore } from "../../stores/useModalStore";
-import { ProfileDropdown } from "../../features/auth/components/ProfilleDropdown";
 
 interface TopbarProps {
   onToggleSidebar: () => void;
@@ -53,7 +50,7 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
 
   return (
     <div className="p-3 sticky top-0 w-full bg-app-topbar grid grid-cols-3 items-center border-y border-app-border">
-      {/* Sidebar toggle & Logo */}
+      {/* Sidebar toggle */}
       <div className="flex items-center gap-4 text-text-muted">
         <button
           onClick={onToggleSidebar}
@@ -62,13 +59,13 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
           className="hover:opacity-80 transition-opacity cursor-pointer"
         >
           {isSidebarOpen ? (
-            <GoSidebarExpand className="size-6" />
+            <Icon name="sidebarClose" className="size-6" />
           ) : (
-            <GoSidebarCollapse className="size-6" />
+            <Icon name="sidebarOpen" className="size-6" />
           )}
         </button>
 
-        {/* Logo */}
+        {/* App Logo */}
         <div className="flex flex-col justify-center cursor-pointer">
           <p className="text-xl font-semibold text-app-brand m-0 leading-none">
             TaskPad
@@ -83,13 +80,13 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
             title="Switch Organization"
             aria-label="Switch Organization"
           >
-            <FaRegBuilding className="size-5" />
+            <Icon name="organization" size={20}/>
             <span className="text-sm font-semibold truncate max-w-32">
               {activeOrg?.name ?? "…"}
             </span>
           </button>
 
-          {/* Dropdown */}
+          {/* organization Dropdown */}
           {dropdownOpen && (
             <div className="absolute left-0 top-full mt-2 w-56 rounded-lg border border-app-border bg-app-sidebar shadow-xl z-50 py-1 overflow-hidden">
               <p className="text-[10px] font-bold uppercase tracking-widest text-text-ghost px-3 pt-2 pb-1">
@@ -106,7 +103,7 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
                       : "text-text-muted"
                   }`}
                 >
-                  <FaRegBuilding className="size-4 shrink-0" />
+                  <Icon name="organization" size={16} className="shrink-0" />
                   <span className="truncate">{org.name}</span>
                   {org.id === activeOrg?.id && (
                     <span className="ml-auto text-[10px] bg-app-button text-white px-1.5 py-0.5 rounded-full">
@@ -121,7 +118,7 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
                   onClick={openCreateOrg}
                   className="w-full flex items-center gap-2 px-3 py-2 text-sm text-text-muted hover:bg-app-item-hover transition-colors"
                 >
-                  <MdOutlineAdd className="size-4" />
+                  <Icon name="plus" size={16} />
                   <span>Create organization</span>
                 </button>
               </div>
@@ -130,7 +127,7 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
         </div>
       </div>
 
-      {/* Search & Create Button */}
+      {/* Search & Create task Button */}
       <div className="flex items-center gap-2 w-full h-full">
         <SearchBar
           className="text-sm bg-app-input-bg"
@@ -139,10 +136,10 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
         <CreateTaskButton slug={currentOrgSlug} />
       </div>
 
-      {/* User related */}
+      {/* notification, app setting and profile */}
       <div className="flex items-center gap-4 text-text-muted justify-self-end">
         <button className="hover:opacity-80 transition-opacity cursor-pointer">
-          <IoIosNotificationsOutline className="size-6" />
+          <Icon name="notification" size={20}/>
         </button>
         <button
           onClick={() => {
@@ -154,7 +151,7 @@ export const Topbar = ({ onToggleSidebar, isSidebarOpen }: TopbarProps) => {
           aria-label="Organization Settings"
           className="hover:opacity-80 transition-opacity cursor-pointer"
         >
-          <IoSettingsOutline className="size-5" />
+          <Icon name="settings" size={20} />
         </button>
         {/* Profile Dropdown */}
         <ProfileDropdown />

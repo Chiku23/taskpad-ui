@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+
+import type { LoginPayload } from "../types/authTypes";
+
 import { loginUser } from "../api/authApi";
 import { getOrganizations } from "../../organization/api/organizationApi";
 import { useOrgStore } from "../../../stores/useOrgStore";
-import type { LoginPayload } from "../types/authTypes";
-import { useQueryClient } from "@tanstack/react-query";
 
 export const LoginForm = () => {
   const [formData, setFormData] = useState<LoginPayload>({

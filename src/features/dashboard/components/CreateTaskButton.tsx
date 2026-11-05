@@ -1,5 +1,6 @@
 import { Button } from "../../../components/ui/Button";
-import { IoIosAdd } from "react-icons/io";
+import { Icon } from "../../../components/ui/Icon";
+
 import { useModalStore } from "../../../stores/useModalStore";
 import { useGetProjects } from "../../projects/hooks/useGetProjects";
 
@@ -21,7 +22,7 @@ export const CreateTaskButton = ({slug}: CreateTaskButtonProps) => {
             className="flex items-center justify-center cursor-pointer h-full px-2 text-sm text-black rounded-md font-bold bg-app-button"
         >
             New Task
-            <IoIosAdd className="size-6"/>
+            <Icon name="plus" className="size-6"/>
         </Button>
     );
 };

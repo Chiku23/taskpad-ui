@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { useAddProjectMember } from "../../projects/hooks/useAddProjectMember";
+
 import { SelectProjectMemberDropdown } from "./SelectProjectMemberDropdown";
+
+import { useAddProjectMember } from "../../projects/hooks/useAddProjectMember";
 import type { Project, ProjectRole } from "../../projects/types/projectTypes";
 import { useToastStore } from "../../../stores/useToastStore";
 

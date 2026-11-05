@@ -1,5 +1,5 @@
 import {useState, type ChangeEvent } from "react";
-import {IoSearch} from "react-icons/io5";
+import { Icon } from "./Icon";
 
 interface SearchProps {
     className: string
@@ -15,7 +15,7 @@ export const SearchBar = ({className, placeholder}: SearchProps) => {
     }
     return(
         <div className="h-full relative flex flex-1 items-center">
-            <IoSearch className="absolute size-5 text-text-ghost left-2"/>
+            <Icon name="search" className="absolute size-5 text-text-ghost left-2"/>
             <input 
             className={className}
             type="text" 

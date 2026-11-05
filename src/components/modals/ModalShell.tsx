@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { IoMdClose } from "react-icons/io";
+import { Icon } from "../ui/Icon";
 
 interface ModalShellProps {
   title: string;
@@ -37,7 +37,7 @@ export const ModalShell = ({ title, onClose, children }: ModalShellProps) => {
             className="p-1 rounded-lg hover:bg-app-item-hover text-text-ghost hover:text-text-muted cursor-pointer transition-colors"
             aria-label="Close modal"
           >
-            <IoMdClose className="size-5" />
+            <Icon name="close" className="size-5" />
           </button>
         </div>
 

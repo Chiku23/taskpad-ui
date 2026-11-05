@@ -1,15 +1,10 @@
-import { MdTaskAlt } from "react-icons/md";
-import { TbSubtask } from "react-icons/tb";
-import { GrChapterAdd } from "react-icons/gr";
-import { MdOutlineCalendarMonth } from "react-icons/md";
-
 import { StatCard } from "../components/StatCard";
 
 const ITEMS = [
-  { id: 1, name: "Completed", icon: MdTaskAlt, data: 2 },
-  { id: 2, name: "Updated", icon: TbSubtask, data: 8 },
-  { id: 3, name: "Created", icon: GrChapterAdd, data: 15 },
-  { id: 4, name: "Due soon", icon: MdOutlineCalendarMonth, data: 3 },
+  { id: 1, name: "Completed", icon: "done" as const, data: 2 },
+  { id: 2, name: "Updated", icon: "updated" as const, data: 8 },
+  { id: 3, name: "Created", icon: "created" as const, data: 15 },
+  { id: 4, name: "Due soon", icon: "due" as const, data: 3 },
 ];
 
 export const SummaryPage = () => {
@@ -17,12 +12,11 @@ export const SummaryPage = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {/* task record panels */}
       {ITEMS.map((item) => {
-        const Icon = item.icon;
         return (
           <StatCard
             key={item.id}
             name={item.name}
-            icon={<Icon className="size-6" />}
+            icon={item.icon}
             data={item.data}
           />
         );

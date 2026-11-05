@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+
+import { Icon } from "../../../components/ui/Icon";
+
 import { useGetProjectMembers } from "../hooks/useGetProjectMembers";
+<<<<<<< Updated upstream
 import {
   IoAlbums,
   IoTrashOutline,
@@ -11,6 +15,8 @@ import {
   AiOutlineLoading3Quarters,
   AiOutlineForm
  } from "react-icons/ai";
+=======
+>>>>>>> Stashed changes
 import { useGetProject } from "../hooks/useGetProject";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { formatDate } from "../../../utils/formatDate";
@@ -47,7 +53,7 @@ export const ProjectSettingsPage = () => {
         <div className="flex flex-col gap-4 p-2">
           {/*Heading */}
           <div className="flex items-center gap-4">
-            <IoAlbums className="size-10 border text-app-button border-app-border bg-app-button/10 p-2 rounded-lg" />
+            <Icon name="project" className="size-10 border text-app-button border-app-border bg-app-button/10 p-2 rounded-lg" />
             <div className="flex flex-col">
               <span className="font-bold text-xl">Project Details</span>
               <p className="text-xs text-text-ghost">
@@ -104,7 +110,7 @@ export const ProjectSettingsPage = () => {
           <div className="flex items-center gap-2">
             {/* Search filter */}
             <div className="relative">
-              <IoSearchOutline className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-text-ghost" />
+              <Icon name="search" className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-text-ghost" />
               <input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -116,7 +122,7 @@ export const ProjectSettingsPage = () => {
             {/* Add Member button */}
             {isOwner && (
               <button className="flex items-center gap-1.5 bg-app-button hover:bg-app-button-hover text-black font-semibold text-xs px-3.5 py-1.5 rounded-lg cursor-pointer transition-colors shadow-sm">
-                <IoPersonAddOutline className="size-4" />
+                <Icon name="user" className="size-4" />
                 <span className="hidden md:flex">Add Member</span>
               </button>
             )}
@@ -126,7 +132,7 @@ export const ProjectSettingsPage = () => {
         <div className="border rounded-xl border-app-border overflow-hidden bg-app-card shadow-sm">
           {isLoading ? (
             <div className="flex items-center justify-center p-12 text-text-ghost gap-2">
-              <AiOutlineLoading3Quarters className="size-5 animate-spin" />
+              <Icon name="loader" className="size-5 animate-spin" />
               <span className="text-sm">Loading members…</span>
             </div>
           ) : filteredMembers.length === 0 ? (
@@ -202,7 +208,7 @@ export const ProjectSettingsPage = () => {
                           <td className="px-5 py-3.5 whitespace-nowrap text-right">
                             {!isMemberOwner && (
                               <button className="size-7 inline-flex items-center justify-center rounded hover:bg-red-500/10 text-text-ghost hover:text-red-400 transition-colors cursor-pointer">
-                                <IoTrashOutline className="size-4" />
+                                <Icon name="delete" className="size-4" />
                               </button>
                             )}
                           </td>

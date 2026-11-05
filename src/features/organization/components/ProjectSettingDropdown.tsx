@@ -1,7 +1,8 @@
 import { Dropdown } from "../../../components/ui/Dropdown";
-import { IoEllipsisHorizontal, IoPersonOutline, IoTrash, IoSettingsOutline  } from "react-icons/io5";
-import { useModalStore } from "../../../stores/useModalStore";
+import { Icon } from "../../../components/ui/Icon";
+
 import type { Project } from "../../projects/types/projectTypes";
+import { useModalStore } from "../../../stores/useModalStore";
 
 interface ProjectSettingDropdownProps {
   id: number;
@@ -22,7 +23,7 @@ export const ProjectSettingDropdown = ({ id, project }: ProjectSettingDropdownPr
       dropdownClassName="z-10 w-50 right-0 mt-1 border border-app-border rounded-sm bg-app-input-bg text-left"
       trigger={
         <div>
-          <IoEllipsisHorizontal />
+          <Icon name="ellipsis" size={16}/>
         </div>
       }
       triggerClassName="border border-transparent hover:border p-1 rounded-md hover:border-app-border cursor-pointer"
@@ -32,7 +33,7 @@ export const ProjectSettingDropdown = ({ id, project }: ProjectSettingDropdownPr
           <button 
           onClick={() => openModal("add_project_member", project)}
           className="w-full flex items-center gap-2 px-4 py-2 hover:bg-app-border cursor-pointer">
-            <IoPersonOutline />
+            <Icon name="user" size={16}/>
             Add Member
           </button>
         </li>
@@ -40,12 +41,12 @@ export const ProjectSettingDropdown = ({ id, project }: ProjectSettingDropdownPr
           <button 
           onClick={(e) => openEditProject(e, project)}
           className="w-full flex items-center gap-2 px-4 py-2 hover:bg-app-border cursor-pointer">
-            <IoSettingsOutline />
+            <Icon name="settings" size={16}/>
             Edit Project
           </button>
         </li>
         <li className="flex items-center gap-2 px-4 py-2 hover:bg-app-border cursor-pointer text-priority-highest">
-          <IoTrash />
+          <Icon name="delete" size={16}/>
           Delete project
         </li>
       </ul>

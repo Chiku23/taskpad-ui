@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
+import { Icon } from "../../../components/ui/Icon";
 
 interface StatsProps {
   type: "issue" | "open" | "in progress" | "done";
-  icon: ReactNode;
+  icon: string;
   data: string | number;
   className?: string;
 }
@@ -39,7 +39,7 @@ export const StatsCard = ({ type, icon, data, className = "" }: StatsProps) => {
           {type}
         </span>
         <div className={`${style.icon} ${style.iconBg} p-2 rounded-lg flex items-center justify-center [&>svg]:h-5 [&>svg]:w-5`}>
-          {icon}
+          <Icon name={icon}/>
         </div>
         
       </div>

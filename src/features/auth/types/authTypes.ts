@@ -7,7 +7,6 @@ export type LoginResponse = {
     status: string;
     message: string;
     data?: {
-        token?: string;
         name: string;
         email: string;
     }

@@ -1,9 +1,4 @@
 import { StatsCard } from "../components/StatsCard";
-import { VscIssues } from "react-icons/vsc";
-import { MdOutlineWatchLater } from "react-icons/md";
-import { GrInProgress } from "react-icons/gr";
-import { MdTaskAlt } from "react-icons/md";
-
 
 export const DashboardPage = () => {
     return(
@@ -19,23 +14,23 @@ export const DashboardPage = () => {
                 <StatsCard 
                 type="issue" 
                 data="128" 
-                icon={<VscIssues className="size-6"/>}/>
+                icon="issue"/>
             
                 <StatsCard 
                 type="open" 
                 data="24" 
-                icon={<MdOutlineWatchLater className="size-6"/>}/>
+                icon="clock"/>
             
                 <StatsCard 
                 type="in progress" 
                 data="46" 
-                icon={<GrInProgress className="size-5"/>}/>
+                icon="progress"/>
             
             
                 <StatsCard 
                 type="done" 
                 data="34" 
-                icon={<MdTaskAlt className="size-6"/>}/>
+                icon="done"/>
                 </div>
             
             {/* content */}

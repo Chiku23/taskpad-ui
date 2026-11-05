@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+
 import type { OrgRole } from "../types/organizationTypes";
 import { useAddOrgMember } from "../hooks/useAddOrgMember";
-import { useParams } from "react-router-dom";
 import { useModalStore } from "../../../stores/useModalStore";
 
 interface AddOrgMemberProps {

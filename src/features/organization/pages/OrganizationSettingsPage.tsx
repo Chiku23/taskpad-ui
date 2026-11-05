@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+
+import { Icon } from "../../../components/ui/Icon";
+
 import { useOrganizations } from "../hooks/useOrganizations";
 import { useGetOrganizationMembers } from "../hooks/useGetOrganizationMembers";
 import { useRemoveOrgMember } from "../hooks/useRemoveOrgMember";
@@ -9,14 +12,7 @@ import { useModalStore } from "../../../stores/useModalStore";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { formatDate } from "../../../utils/formatDate";
 import type { OrgRole, OrganizationMember } from "../types/organizationTypes";
-import {
-  IoPersonAddOutline,
-  IoTrashOutline,
-  IoShieldCheckmarkOutline,
-  IoBusinessOutline,
-  IoSearchOutline,
-} from "react-icons/io5";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
 
 export const OrganizationSettingsPage = () => {
   const { orgSlug = "" } = useParams<{ orgSlug: string }>();
@@ -157,7 +153,7 @@ export const OrganizationSettingsPage = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="size-10 rounded-lg bg-app-button/10 flex items-center justify-center text-app-button border border-app-border">
-              <IoBusinessOutline className="size-5" />
+              <Icon name="organization" size={20}/>
             </div>
             <div>
               <h2 className="text-lg font-bold text-text-main">
@@ -267,7 +263,7 @@ export const OrganizationSettingsPage = () => {
           <div className="flex items-center gap-2">
             {/* Search filter */}
             <div className="relative">
-              <IoSearchOutline className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-text-ghost" />
+              <Icon name="search" className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-text-ghost" />
               <input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -282,7 +278,7 @@ export const OrganizationSettingsPage = () => {
                 onClick={handleOpenAddMember}
                 className="flex items-center gap-1.5 bg-app-button hover:bg-app-button-hover text-black font-semibold text-xs px-3.5 py-2 rounded-lg cursor-pointer transition-colors shadow-sm"
               >
-                <IoPersonAddOutline className="size-4" />
+                <Icon name="user" className="size-4" />
                 <span>Add Member</span>
               </button>
             )}
@@ -293,7 +289,7 @@ export const OrganizationSettingsPage = () => {
         <div className="border rounded-xl border-app-border overflow-hidden bg-app-card shadow-sm">
           {membersLoading ? (
             <div className="flex items-center justify-center p-12 text-text-ghost gap-2">
-              <AiOutlineLoading3Quarters className="size-5 animate-spin" />
+              <Icon name="loader" className="size-5 animate-spin" />
               <span className="text-sm">Loading members…</span>
             </div>
           ) : filteredMembers.length === 0 ? (
@@ -361,7 +357,7 @@ export const OrganizationSettingsPage = () => {
                         <td className="px-5 py-3.5 whitespace-nowrap">
                           {isMemberOwner ? (
                             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                              <IoShieldCheckmarkOutline className="size-3.5" />
+                              <Icon name="owner" className="size-3.5" />
                               Owner
                             </span>
                           ) : isOwner ? (
@@ -409,7 +405,7 @@ export const OrganizationSettingsPage = () => {
                                 aria-label={`Remove ${displayName}`}
                                 className="size-7 inline-flex items-center justify-center rounded hover:bg-red-500/10 text-text-ghost hover:text-red-400 transition-colors cursor-pointer"
                               >
-                                <IoTrashOutline className="size-4" />
+                                <Icon name="delete" className="size-4" />
                               </button>
                             )}
                           </td>
