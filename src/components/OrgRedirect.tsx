@@ -33,6 +33,7 @@ export const OrgRedirect = () => {
 
     const savedSlug = localStorage.getItem("active_org_slug");
     const targetOrg = orgs.find((o) => o.slug === savedSlug) ?? orgs[0];
+    console.log(targetOrg)
 
     setActiveOrg(targetOrg);
     localStorage.setItem("active_org_slug", targetOrg.slug);

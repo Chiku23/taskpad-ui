@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useCreateOrganization } from "../hooks/useCreateOrganization";
 import { generateSlug } from "../../../utils/generateSlug";
 import { useOrgStore } from "../../../stores/useOrgStore";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface CreateOrganizationModalProps {
   onSuccess: () => void;
@@ -13,6 +14,7 @@ export const CreateOrganizationModal = ({ onSuccess }: CreateOrganizationModalPr
   const [orgName, setOrgName] = useState("");
   const orgSlugName = generateSlug(orgName);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { mutateCreateOrganization, isPending } = useCreateOrganization();
 
@@ -23,7 +25,8 @@ export const CreateOrganizationModal = ({ onSuccess }: CreateOrganizationModalPr
       { name: orgName, slug: orgSlugName },
       {
         onSuccess: (response: any) => {
-          onSuccess();
+          onSuccess(); //close modal
+          queryClient.clear();
           const createdOrg = response?.data?.organization;
           if (createdOrg) {
             useOrgStore.getState().setActiveOrg(createdOrg);
