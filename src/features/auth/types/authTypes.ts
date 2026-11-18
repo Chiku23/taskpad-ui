@@ -1,6 +1,6 @@
 export type LoginPayload = {
-    emailInput: string,
-    passwordInput: string
+    email: string,
+    password: string
 }
 
 export type LoginResponse = {
@@ -13,13 +13,28 @@ export type LoginResponse = {
 }
 
 export type RegisterPayload = {
-    nameInput: string,
-    emailInput: string,
-    passwordInput: string,
-    confirmpasswordInput: string
+    name: string,
+    email: string,
+    password: string,
+    confirmpassword: string
 }
 
 export type RegisterResponse = {
     status: string,
     message: string
+}
+
+export type UserProfileResponse = {
+    status: string;
+    message: string;
+    data: {
+        id: number;
+        name: string;
+        email: string;
+    }
+}
+
+export type LogoutResponse = {
+    status: string;
+    message: string;
 }
