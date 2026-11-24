@@ -5,7 +5,7 @@ import { Icon } from "../../../components/ui/Icon.tsx";
 
 import type { Project } from "../../projects/types/projectTypes.ts";
 
-interface CreateProjectModalProps {
+interface CreateTaskModalProps {
   onSuccess: () => void;
   projectData: Project[];
   isLoading: boolean;
@@ -15,7 +15,7 @@ export const CreateTaskModal = ({
   onSuccess,
   projectData,
   isLoading,
-}: CreateProjectModalProps) => {
+}: CreateTaskModalProps) => {
   const [selectedProject, setSelectedProject] = useState("");
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
@@ -73,6 +73,14 @@ export const CreateTaskModal = ({
             />
           </div>
 
+          <div className="flex gap-2">
+            <span className="border rounded-md px-1 border-app-border text-text-muted text-sm">Unassigned</span>
+            <span className="border rounded-md px-1 border-app-border text-text-muted text-sm">Parent</span>
+            <span className="border rounded-md px-1 border-app-border text-text-muted text-sm">Highest</span>
+            <span className="border rounded-md px-1 border-app-border text-text-muted text-sm">Labels</span>
+            <span className="border rounded-md px-1 border-app-border text-text-muted text-sm">Due date</span>
+          </div>
+
           <button
             type="submit"
             className="mt-6 w-full bg-app-button hover:bg-app-button-hover text-black font-semibold rounded-lg px-4 py-2 text-sm cursor-pointer"
@@ -109,7 +117,7 @@ const SelectProjectDropdown = ({
         </div>
       }
     >
-      <div className="flex flex-col p-2 bg-app-input-bg border border-app-border rounded-lg">
+      <div className="flex flex-col p-2 h-40 bg-app-input-bg border border-app-border rounded-lg overflow-y-auto">
         {projects?.map((project) => (
           <button
             key={project.id}
