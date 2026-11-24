@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { SearchBar } from "../ui/SearchBar";
-import { CreateTaskButton } from "../../features/dashboard/components/CreateTaskButton";
+import { CreateTaskButton } from "../../features/issues/components/CreateTaskButton";
 import { ProfileDropdown } from "../../features/auth/components/ProfilleDropdown";
 import { Icon } from "../ui/Icon";
 
